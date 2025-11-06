@@ -4,6 +4,7 @@ import { useState, memo, useCallback, useMemo, lazy, Suspense } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import dynamic from 'next/dynamic';
+import { StructuredData } from "@/components/StructuredData";
 
 // Lazy load heavy sections below the fold for faster initial load
 const FormSection = dynamic(() => import('@/components/FormSection').then(mod => ({ default: mod.FormSection })), {
@@ -127,7 +128,7 @@ const FAQItem = memo(({
     isOpen 
       ? 'border-blue-200 shadow-lg shadow-blue-100/50' 
       : 'border-slate-200 shadow-sm hover:border-blue-100 hover:shadow-md'
-  }`}>
+  }`} itemScope itemType="https://schema.org/Question">
     {/* Gradient accent line - only visible when open */}
     <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 transition-opacity duration-300 ${
       isOpen ? 'opacity-100' : 'opacity-0'
@@ -151,7 +152,7 @@ const FAQItem = memo(({
           isOpen 
             ? 'text-blue-600' 
             : 'text-slate-900 group-hover:text-blue-600'
-        }`}>
+        }`} itemProp="name">
           {faq.question}
         </h3>
       </div>
@@ -190,8 +191,8 @@ const FAQItem = memo(({
     >
       <div className="px-6 lg:px-8 pb-6">
         <div className="pl-12 pr-4">
-          <div className="pt-2 border-t border-slate-100">
-            <p className="text-slate-600 leading-relaxed pt-4 text-[15px] lg:text-base">
+          <div className="pt-2 border-t border-slate-100" itemScope itemType="https://schema.org/Answer">
+            <p className="text-slate-600 leading-relaxed pt-4 text-[15px] lg:text-base" itemProp="text">
               {faq.answer}
             </p>
           </div>
@@ -224,22 +225,24 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen relative overflow-hidden">
+    <main className="min-h-screen relative overflow-hidden" itemScope itemType="https://schema.org/WebPage">
+      <StructuredData />
 
       {/* Header */}
-      <header className="relative z-10 px-6 lg:px-12 py-4 lg:py-6">
+      <header className="relative z-10 px-6 lg:px-12 py-4 lg:py-6" role="banner">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between">
             <div className="flex flex-col md:block">
               <Image
                 src="https://creditplan.it/wp-content/uploads/2023/02/LOGO-CREDITPLAN.png"
-                alt="Creditplan logo"
+                alt="Creditplan - Logo aziendale servizi di mediazione creditizia per cessione del quinto"
                 width={280}
                 height={96}
                 quality={60}
                 priority
                 sizes="(max-width: 768px) 200px, 280px"
                 className="w-auto h-8 lg:h-10 mt-4 lg:mt-0"
+                itemProp="logo"
               />
             </div>
           
@@ -258,7 +261,7 @@ export default function Home() {
                 </div>
                 <Image
                   src="https://www.organismo-am.it/b/0/c3f18c274847902265f07537ce366a8eJO5NMdSW1LRcd_pl_8_eq_/1.png"
-                  alt="Organismo Agenti e Mediatori"
+                  alt="Creditplan iscritto al registro OAM M30 - Organismo Agenti e Mediatori - Verifica autorizzazione"
                   width={44}
                   height={44}
                   quality={60}
@@ -279,16 +282,16 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative z-10 px-6 lg:px-12 pt-0 lg:pt-8 pb-20">
+      <section className="relative z-10 px-6 lg:px-12 pt-0 lg:pt-8 pb-20" itemScope itemType="https://schema.org/FinancialProduct">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             
             {/* Left: Content */}
-            <div className="space-y-8">
+            <article className="space-y-8">
               
               {/* Main Headline */}
-              <div className="space-y-4">
-                <h1 className="text-5xl lg:text-7xl font-bold lg:font-black leading-[1.05] tracking-tight">
+              <header className="space-y-4">
+                <h1 className="text-5xl lg:text-7xl font-bold lg:font-black leading-[1.05] tracking-tight" itemProp="name">
                   <span className="block text-slate-900">
                     Ottieni fino a 75.000€
                   </span>
@@ -296,10 +299,10 @@ export default function Home() {
                     con la cessione del quinto
                   </span>
                 </h1>
-                <p className="text-xl lg:text-2xl text-slate-600 font-light max-w-xl leading-relaxed">
+                <p className="text-xl lg:text-2xl text-slate-600 font-light max-w-xl leading-relaxed" itemProp="description">
                   Istruttoria rapida ed approvazione entro 24/48 ore
                 </p>
-              </div>
+              </header>
 
               {/* Benefits */}
               <div className="grid sm:grid-cols-2 gap-4">
@@ -340,7 +343,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
+            </article>
 
             {/* Right: Form Card */}
             <FormSection />
@@ -349,16 +352,16 @@ export default function Home() {
       </section>
 
       {/* Why Choose Creditplan Section */}
-      <section className="relative z-10 px-6 lg:px-12 py-20">
+      <section className="relative z-10 px-6 lg:px-12 py-20" aria-labelledby="why-creditplan-heading">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+          <header className="text-center mb-16">
+            <h2 id="why-creditplan-heading" className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
               Perché scegliere Creditplan?
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Semplifichiamo ogni aspetto del tuo finanziamento
             </p>
-          </div>
+          </header>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {/* Benefit 1 - Fast Approval */}
@@ -413,23 +416,23 @@ export default function Home() {
       </section>
 
       {/* Bank Partnerships Section */}
-      <section className="relative z-10 px-6 lg:px-12 py-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30">
+      <section className="relative z-10 px-6 lg:px-12 py-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30" aria-labelledby="bank-partnerships-heading">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+          <header className="text-center mb-12">
+            <h2 id="bank-partnerships-heading" className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
               Le nostre convenzioni bancarie
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Collaboriamo con i primari partner sul mercato per garantirti tassi competitivi e tempi rapidi
             </p>
-          </div>
+          </header>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
             {/* Banca Sistema */}
             <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
               <Image
                 src="https://upload.wikimedia.org/wikipedia/commons/7/79/Banca_Sistema_logo.svg"
-                alt="Banca Sistema"
+                alt="Banca Sistema - Partner bancario Creditplan per cessione del quinto"
                 width={200}
                 height={80}
                 className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -441,7 +444,7 @@ export default function Home() {
             <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
               <Image
                 src="https://www.bancaifis.it/app/uploads/2025/03/CAPITALFIN_Logo_Footer_Blu.svg"
-                alt="Capital Fin"
+                alt="Capital Fin - Partner bancario Creditplan per prestiti e finanziamenti"
                 width={260}
                 height={104}
                 className="w-full h-auto max-h-[5.5rem] object-contain grayscale group-hover:grayscale-0 transition-all duration-300 mt-4 ml-2"
@@ -453,7 +456,7 @@ export default function Home() {
             <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
               <Image
                 src="https://www.fincontinuo.com/hubfs/fincontinuo-logo.svg"
-                alt="Fincontinuo"
+                alt="Fincontinuo - Partner finanziario Creditplan per cessione del quinto"
                 width={200}
                 height={80}
                 className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -465,7 +468,7 @@ export default function Home() {
             <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
               <Image
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ68VRQtS9RBsKX4NXmQNzByi5hqhEGf7vc1w&s"
-                alt="Partner bancario"
+                alt="Partner bancario convenzionato Creditplan per prestiti e finanziamenti"
                 width={200}
                 height={80}
                 className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -479,7 +482,7 @@ export default function Home() {
               <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
                 <Image
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2_zu4rkVrkobpR88917ZnpI4RPD3zz3tXRw&s"
-                  alt="Partner bancario"
+                  alt="Partner bancario convenzionato Creditplan per cessione del quinto"
                   width={200}
                   height={80}
                   className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -491,7 +494,7 @@ export default function Home() {
               <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
                 <Image
                   src="https://thebanks.eu/img/logos/IBL_Banca.png"
-                  alt="IBL Banca"
+                  alt="IBL Banca - Partner bancario Creditplan per cessione del quinto e prestiti"
                   width={200}
                   height={80}
                   className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -503,7 +506,7 @@ export default function Home() {
               <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
                 <Image
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3zTLQW74Q-2PPo5vC0p0tkJ_xOYRUJUbDiA&s"
-                  alt="Partner bancario"
+                  alt="Partner bancario convenzionato Creditplan per finanziamenti e prestiti"
                   width={200}
                   height={80}
                   className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -522,22 +525,22 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section className="relative z-10 px-6 lg:px-12 py-20 bg-white/50">
+      <section className="relative z-10 px-6 lg:px-12 py-20 bg-white/50" aria-labelledby="how-it-works-heading" itemScope itemType="https://schema.org/HowTo">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+          <header className="text-center mb-16">
+            <h2 id="how-it-works-heading" className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4" itemProp="name">
               Come funziona
             </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto" itemProp="description">
               Un processo semplice e veloce in soli 3 passaggi
             </p>
-          </div>
+          </header>
 
           {/* Trust Image */}
           <div className="max-w-3xl mx-auto">
             <Image
               src="https://creditplan.it/wp-content/uploads/2025/11/Progetto-senza-titolo-3.png"
-              alt="Creditplan"
+              alt="Come funziona la cessione del quinto con Creditplan - Processo in 3 semplici passaggi"
               width={1200}
               height={600}
               quality={60}
@@ -551,39 +554,39 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
             {/* Step 1 */}
-            <div className="relative group">
+            <div className="relative group" itemScope itemType="https://schema.org/HowToStep" itemProp="step">
               <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-slate-100">
                 <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                  <span className="text-2xl font-bold text-white">1</span>
+                  <span className="text-2xl font-bold text-white" itemProp="position">1</span>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">Compila il form</h3>
-                <p className="text-slate-600 leading-relaxed">
+                <h3 className="text-2xl font-bold text-slate-900 mb-3" itemProp="name">Compila il form</h3>
+                <p className="text-slate-600 leading-relaxed" itemProp="text">
                   Inserisci i tuoi dati in meno di 2 minuti. Nessun documento richiesto in questa fase.
                 </p>
               </div>
             </div>
 
             {/* Step 2 */}
-            <div className="relative group">
+            <div className="relative group" itemScope itemType="https://schema.org/HowToStep" itemProp="step">
               <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-slate-100">
                 <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                  <span className="text-2xl font-bold text-white">2</span>
+                  <span className="text-2xl font-bold text-white" itemProp="position">2</span>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">Ricevi la chiamata</h3>
-                <p className="text-slate-600 leading-relaxed">
+                <h3 className="text-2xl font-bold text-slate-900 mb-3" itemProp="name">Ricevi la chiamata</h3>
+                <p className="text-slate-600 leading-relaxed" itemProp="text">
                   Un nostro consulente esperto ti contatterà entro 2 ore per discutere la tua situazione.
                 </p>
               </div>
             </div>
 
             {/* Step 3 */}
-            <div className="relative group">
+            <div className="relative group" itemScope itemType="https://schema.org/HowToStep" itemProp="step">
               <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow duration-300 border border-slate-100">
                 <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                  <span className="text-2xl font-bold text-white">3</span>
+                  <span className="text-2xl font-bold text-white" itemProp="position">3</span>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">Ricevi il denaro</h3>
-                <p className="text-slate-600 leading-relaxed">
+                <h3 className="text-2xl font-bold text-slate-900 mb-3" itemProp="name">Ricevi il denaro</h3>
+                <p className="text-slate-600 leading-relaxed" itemProp="text">
                   Dopo l'approvazione, ricevi il tuo finanziamento sul conto in 48 ore.
                 </p>
               </div>
@@ -602,7 +605,7 @@ export default function Home() {
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <Image
                   src="https://creditplan.it/wp-content/uploads/2023/02/03_CSQ.jpg"
-                  alt="Famiglia felice grazie a Creditplan"
+                  alt="Famiglia soddisfatta con Creditplan - Cessione del quinto per realizzare i propri progetti"
                   width={800}
                   height={600}
                   quality={60}
@@ -665,21 +668,21 @@ export default function Home() {
       </section>
 
       {/* FAQ Section */}
-      <section className="relative z-10 px-6 lg:px-12 py-24 overflow-hidden">
+      <section className="relative z-10 px-6 lg:px-12 py-24 overflow-hidden" aria-labelledby="faq-heading" itemScope itemType="https://schema.org/FAQPage">
         {/* Background Elements */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30"></div>
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIHN0cm9rZT0iIzk0YTNiOCIgc3Ryb2tlLW9wYWNpdHk9Ii4wNSIvPjwvZz48L3N2Zz4=')] opacity-40"></div>
         
         <div className="relative max-w-5xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
+          <header className="text-center mb-16">
+            <h2 id="faq-heading" className="text-4xl lg:text-6xl font-bold text-slate-900 mb-4 tracking-tight">
               Domande Frequenti
             </h2>
             <p className="text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
               Tutto quello che devi sapere sulla Cessione del Quinto.
             </p>
-          </div>
+          </header>
 
           {/* FAQ Grid */}
           <div className="grid gap-4 lg:gap-5">
@@ -725,13 +728,13 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 px-6 lg:px-12 py-8 border-t border-slate-200 bg-white/50 backdrop-blur-sm">
+      <footer className="relative z-10 px-6 lg:px-12 py-8 border-t border-slate-200 bg-white/50 backdrop-blur-sm" role="contentinfo" itemScope itemType="https://schema.org/WPFooter">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex flex-col items-center md:items-start gap-6">
               <Image
                 src="https://creditplan.it/wp-content/uploads/2023/02/LOGO-CREDITPLAN.png"
-                alt="Creditplan logo"
+                alt="Creditplan - Logo aziendale servizi di mediazione creditizia"
                 width={280}
                 height={96}
                 quality={60}
@@ -741,7 +744,7 @@ export default function Home() {
                 className="w-auto h-8 select-none"
                 style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none' }}
               />
-              <p className="text-sm text-slate-600">
+              <p className="text-sm text-slate-600" itemProp="copyrightHolder">
                 © 2025 Creditplan Italia Network di Mediazione Credizia. Tutti i diritti riservati.
               </p>
             </div>
