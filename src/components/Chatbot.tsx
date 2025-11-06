@@ -185,6 +185,10 @@ export function Chatbot() {
                 {message.timestamp.toLocaleTimeString('it-IT', {
                   hour: '2-digit',
                   minute: '2-digit',
+                })} - {message.timestamp.toLocaleDateString('it-IT', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
                 })}
               </span>
             </div>

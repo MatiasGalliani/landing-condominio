@@ -5,6 +5,8 @@ export interface PersonalInfo {
   cognome: string;
   mail: string;
   telefono: string;
+  meseNascita: string;
+  annoNascita: string;
 }
 
 export interface PensionatoData {
@@ -84,9 +86,9 @@ export const NON_FINANCEABLE_PENSION_TYPES = [
 ] as const;
 
 export const TIPOLOGIE_DIPENDENTE = [
+  "PUBBLICO/STATALE",
   "PRIVATO",
-  "PUBBLICO",
-  "PARASUBORDINATO",
+  "PARAPUBBLICO",
 ] as const;
 
 export const TIPOLOGIE_CONTRATTO = [

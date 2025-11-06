@@ -3,8 +3,6 @@
 import { useState, memo, useCallback, useMemo, lazy, Suspense } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Chatbot } from "@/components/Chatbot";
 import dynamic from 'next/dynamic';
 
 // Lazy load heavy sections below the fold for faster initial load
@@ -16,11 +14,11 @@ const FormSection = dynamic(() => import('@/components/FormSection').then(mod =>
 const FAQ_ITEMS = [
   {
     question: "Cos'è la Cessione del Quinto?",
-    answer: "La Cessione del Quinto è un prestito personale con una rata mensile che non supera il quinto (20%) del tuo stipendio netto o della tua pensione, trattenuta direttamente in busta paga o sulla pensione."
+    answer: "La cessione del quinto è un prestito garantito con trattenuta diretta in busta paga o sulla pensione. Può essere richiesto senza dovere fornire motivazioni e l'importo massimo della rata non può eccedere il 20% dello stipendio netto mensile (un quinto)."
   },
   {
     question: "Quali sono i costi e le commissioni associate?",
-    answer: "Le commissioni di mediazione sono regolamentate secondo la normativa vigente e vengono sempre comunicate in modo trasparente nel preventivo TAEG (Tasso Annuo Effettivo Globale). Il TAEG comprende tutti i costi, inclusi: spese di istruttoria, commissioni di mediazione, costi assicurativi obbligatori per legge e commissioni bancarie. Riceverai un preventivo personalizzato e dettagliato prima di qualsiasi impegno, in conformità con le normative di trasparenza bancaria."
+    answer: "Nessun costo o commissioni accessorie; l'importo richiesto viene erogato \"chiavi in mano\"."
   },
   {
     question: "Quanto tempo serve per ottenere il prestito?",
@@ -28,7 +26,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Quali requisiti devo avere per richiedere la Cessione del Quinto?",
-    answer: "Puoi richiedere la Cessione del Quinto se sei un lavoratore dipendente (pubblico o privato) con contratto a tempo indeterminato o un pensionato. Non è richiesto alcun garante."
+    answer: "Puoi richiedere la Cessione del Quinto se sei un lavoratore dipendente (pubblico/statale o privato) con contratto a tempo indeterminato o un pensionato. Non è richiesto alcun garante."
   },
   {
     question: "Esiste un limite massimo di età per la Cessione del Quinto?",
@@ -40,18 +38,18 @@ const FAQ_ITEMS = [
   },
   {
     question: "Perché dovrei scegliere Creditplan?",
-    answer: "Offriamo tempi rapidi di erogazione. Collaboriamo con partner bancari convenzionati INPS, garantendo sicurezza e affidabilità. Abbiamo un team dedicato di professionisti a tua disposizione. Nessuna spesa aggiuntiva: la consulenza è gratuita. Tassi altamente competitivi."
+    answer: "Le nostre convenzioni bancarie con i primari partner sul mercato, ci permettono di avere tassi competitivi e tempi rapidi di erogazione."
   },
   {
     question: "Posso richiedere il prestito se sono stato segnalato come cattivo pagatore?",
-    answer: "Sì, la Cessione del Quinto è accessibile anche in caso di segnalazioni o protesti, in quanto non si basa sulla tua storia creditizia, ma sul tuo stipendio o pensione."
+    answer: "Sì, la Cessione del Quinto è accessibile anche in caso di segnalazioni o protesti, in quanto non tiene conto delle segnalazioni nelle banche dati pubbliche."
   },
   {
     question: "È possibile estinguere anticipatamente la Cessione del Quinto?",
-    answer: "Sì, puoi estinguere anticipatamente il prestito in qualsiasi momento beneficiando della riduzione degli interessi residui."
+    answer: "Sì, puoi estinguere anticipatamente il prestito in qualsiasi momento beneficiando dello storno degli interessi futuri dovuti."
   },
   {
-    question: "Quanto costa la consulenza iniziale con Creditplan?",
+    question: "Quanto costa la consulenza con Creditplan?",
     answer: "Nessun costo accessorio."
   }
 ] as const;
@@ -210,8 +208,14 @@ export default function Home() {
 
   // Memoize scroll handler
   const scrollToForm = useCallback(() => {
-    const formElement = document.querySelector('form');
-    formElement?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const formSection = document.getElementById('form-section');
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      // Fallback: try to find the form
+      const formElement = document.querySelector('form');
+      formElement?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }, []);
 
   // Memoize FAQ toggle handlers
@@ -404,6 +408,115 @@ export default function Home() {
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Bank Partnerships Section */}
+      <section className="relative z-10 px-6 lg:px-12 py-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+              Le nostre convenzioni bancarie
+            </h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Collaboriamo con i primari partner sul mercato per garantirti tassi competitivi e tempi rapidi
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
+            {/* Banca Sistema */}
+            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
+              <Image
+                src="https://upload.wikimedia.org/wikipedia/commons/7/79/Banca_Sistema_logo.svg"
+                alt="Banca Sistema"
+                width={200}
+                height={80}
+                className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Capital Fin */}
+            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
+              <Image
+                src="https://www.bancaifis.it/app/uploads/2025/03/CAPITALFIN_Logo_Footer_Blu.svg"
+                alt="Capital Fin"
+                width={260}
+                height={104}
+                className="w-full h-auto max-h-[5.5rem] object-contain grayscale group-hover:grayscale-0 transition-all duration-300 mt-4 ml-2"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Fincontinuo */}
+            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
+              <Image
+                src="https://www.fincontinuo.com/hubfs/fincontinuo-logo.svg"
+                alt="Fincontinuo"
+                width={200}
+                height={80}
+                className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Bank Logo 4 */}
+            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
+              <Image
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ68VRQtS9RBsKX4NXmQNzByi5hqhEGf7vc1w&s"
+                alt="Partner bancario"
+                width={200}
+                height={80}
+                className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Last 3 logos - centered */}
+            <div className="col-span-2 md:col-span-3 lg:col-span-4 flex flex-wrap justify-center gap-6 lg:gap-8">
+              {/* Bank Logo 5 */}
+              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
+                <Image
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2_zu4rkVrkobpR88917ZnpI4RPD3zz3tXRw&s"
+                  alt="Partner bancario"
+                  width={200}
+                  height={80}
+                  className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* IBL Banca */}
+              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
+                <Image
+                  src="https://thebanks.eu/img/logos/IBL_Banca.png"
+                  alt="IBL Banca"
+                  width={200}
+                  height={80}
+                  className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Bank Logo 7 */}
+              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
+                <Image
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3zTLQW74Q-2PPo5vC0p0tkJ_xOYRUJUbDiA&s"
+                  alt="Partner bancario"
+                  width={200}
+                  height={80}
+                  className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-sm text-slate-600">
+              <span className="font-semibold text-slate-900">Partner convenzionati INPS</span> - Garantiamo sicurezza e affidabilità
+            </p>
           </div>
         </div>
       </section>
@@ -661,35 +774,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* Chat Widget */}
-      <Dialog>
-        <DialogTrigger asChild>
-          <button
-            type="button"
-            onContextMenu={(e) => e.preventDefault()}
-            className="fixed bottom-6 right-4 z-50 flex items-center gap-5 rounded-3xl bg-white px-5 py-4 shadow-2xl border border-blue-100/60 backdrop-blur-md transition-all duration-300 hover:translate-y-[-2px] hover:shadow-[0_24px_55px_-20px_rgba(37,99,235,0.55)]"
-            aria-label="Parla con un consulente"
-          >
-            <div className="flex flex-col text-left leading-tight">
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-600">Dubbi?</span>
-              <span className="text-base font-semibold text-slate-900">Parla con</span>
-            </div>
-            <Image
-              src="https://creditplan.it/wp-content/uploads/2025/10/Eugenio.svg"
-              alt="Eugenio, il tuo consulente Creditplan"
-              width={120}
-              height={48}
-              className="h-12 w-auto max-w-[140px] object-contain select-none"
-              draggable={false}
-              style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none', pointerEvents: 'none' }}
-              priority
-            />
-          </button>
-        </DialogTrigger>
-        <DialogContent className="max-w-2xl p-0 gap-0 border-0 mx-4 sm:mx-auto">
-          <Chatbot />
-        </DialogContent>
-      </Dialog>
     </main>
   );
 }

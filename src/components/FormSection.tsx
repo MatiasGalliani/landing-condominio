@@ -19,6 +19,8 @@ const formSchema = z.object({
   cognome: z.string().min(2, "Il cognome deve contenere almeno 2 caratteri"),
   mail: z.string().email("Inserisci un indirizzo email valido"),
   telefono: z.string().min(10, "Il numero di telefono deve contenere almeno 10 cifre"),
+  meseNascita: z.string().min(1, "Seleziona il mese di nascita"),
+  annoNascita: z.string().min(4, "Inserisci l'anno di nascita").regex(/^\d{4}$/, "L'anno deve essere di 4 cifre"),
 });
 
 export function FormSection() {
@@ -29,6 +31,8 @@ export function FormSection() {
       cognome: "",
       mail: "",
       telefono: "",
+      meseNascita: "",
+      annoNascita: "",
     },
   });
 
@@ -108,15 +112,15 @@ export function FormSection() {
       const titles = [
         "Di quanto hai bisogno?",
         "Qual è la tua pensione mensile?",
-        "Ente pensionistico",
         "Tipologia di pensione",
+        "Ente pensionistico",
         "Quasi fatto!",
       ];
       const subtitles = [
         "Questo ci aiuta a calcolare la rata mensile ottimale per te",
         "Necessario per determinare l'importo massimo finanziabile",
-        "Per velocizzare la pratica con il tuo ente",
         "Alcune tipologie hanno condizioni speciali più vantaggiose",
+        "Per velocizzare la pratica con il tuo ente",
         "Clicca per inviare la richiesta e ricevere la tua offerta personalizzata",
       ];
       return {
@@ -156,7 +160,7 @@ export function FormSection() {
   const headerContent = getHeaderContent();
 
   return (
-    <div className="relative">
+    <div className="relative" id="form-section">
       <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl opacity-10"></div>
       <Card className="relative bg-white shadow-2xl border-0 overflow-hidden">
         <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500"></div>
@@ -302,6 +306,57 @@ export function FormSection() {
                     </FormItem>
                   )}
                 />
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="meseNascita"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-slate-700 font-medium">Mese di nascita</FormLabel>
+                        <FormControl>
+                          <select
+                            {...field}
+                            className="h-12 w-full px-3 border border-slate-200 rounded-md focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                          >
+                            <option value="">Seleziona...</option>
+                            <option value="01">Gennaio</option>
+                            <option value="02">Febbraio</option>
+                            <option value="03">Marzo</option>
+                            <option value="04">Aprile</option>
+                            <option value="05">Maggio</option>
+                            <option value="06">Giugno</option>
+                            <option value="07">Luglio</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Settembre</option>
+                            <option value="10">Ottobre</option>
+                            <option value="11">Novembre</option>
+                            <option value="12">Dicembre</option>
+                          </select>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="annoNascita"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-slate-700 font-medium">Anno di nascita</FormLabel>
+                        <FormControl>
+                          <Input 
+                            type="text" 
+                            placeholder="1985" 
+                            maxLength={4}
+                            {...field}
+                            className="h-12 border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
                 <Button 
                   type="submit" 
                   className="w-full h-14 text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"

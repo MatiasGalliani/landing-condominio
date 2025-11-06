@@ -48,6 +48,8 @@ export function useFormState(form: UseFormReturn<any>): UseFormStateReturn {
         form.setValue("cognome", parsed.cognome || "");
         form.setValue("mail", parsed.mail || "");
         form.setValue("telefono", parsed.telefono || "");
+        form.setValue("meseNascita", parsed.meseNascita || "");
+        form.setValue("annoNascita", parsed.annoNascita || "");
         if (parsed.contactInfoSubmitted) setContactInfoSubmitted(true);
         if (parsed.userPosition) setUserPosition(parsed.userPosition);
         if (parsed.pensionato) setPensionato(parsed.pensionato);
@@ -65,6 +67,8 @@ export function useFormState(form: UseFormReturn<any>): UseFormStateReturn {
       cognome: form.watch("cognome"),
       mail: form.watch("mail"),
       telefono: form.watch("telefono"),
+      meseNascita: form.watch("meseNascita"),
+      annoNascita: form.watch("annoNascita"),
       contactInfoSubmitted,
       userPosition,
       pensionato,
@@ -76,6 +80,8 @@ export function useFormState(form: UseFormReturn<any>): UseFormStateReturn {
     form.watch("cognome"),
     form.watch("mail"),
     form.watch("telefono"),
+    form.watch("meseNascita"),
+    form.watch("annoNascita"),
     contactInfoSubmitted,
     userPosition,
     pensionato,

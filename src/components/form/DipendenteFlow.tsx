@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { NumberInput } from "./NumberInput";
@@ -16,7 +17,11 @@ interface DipendenteFlowProps {
   onSubmit: () => void;
 }
 
+const PRIVACY_POLICY_URL = "https://creditplan.it/wp-content/uploads/2023/04/Informativa-privacy.pdf";
+
 export function DipendenteFlow({ data, onUpdate, onBack, onSubmit }: DipendenteFlowProps) {
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
+
   const updateField = (field: Partial<DipendenteData>) => {
     onUpdate({ ...data, ...field });
   };
@@ -62,7 +67,16 @@ export function DipendenteFlow({ data, onUpdate, onBack, onSubmit }: DipendenteF
       return;
     }
     clearError();
-    updateField({ step: 5 });
+    
+    // If PUBBLICO/STATALE, skip num dipendenti and go directly to data assunzione (step 5)
+    // For others, go to num dipendenti (step 5)
+    if (data.tipo === "PUBBLICO/STATALE") {
+      // Skip to data assunzione - but we need to use a different step number
+      // Let's use step 5 for data assunzione when PUBBLICO/STATALE
+      updateField({ step: 5 });
+    } else {
+      updateField({ step: 5 });
+    }
   };
 
   const handleNumDipendentiNext = () => {
@@ -80,6 +94,14 @@ export function DipendenteFlow({ data, onUpdate, onBack, onSubmit }: DipendenteF
       updateField({ error: "Inserisci la data di assunzione" });
       return;
     }
+    
+    // If PUBBLICO/STATALE, skip TFR question and go directly to final step
+    if (data.tipo === "PUBBLICO/STATALE") {
+      clearError();
+      updateField({ step: 7 });
+      return;
+    }
+    
     const assunzioneDate = new Date(data.dataAssunzione);
     const today = new Date();
     const sixMonthsAgo = new Date(today);
@@ -171,7 +193,7 @@ export function DipendenteFlow({ data, onUpdate, onBack, onSubmit }: DipendenteF
         </div>
       )}
 
-      {data.step === 5 && (
+      {data.step === 5 && data.tipo !== "PUBBLICO/STATALE" && (
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -190,7 +212,7 @@ export function DipendenteFlow({ data, onUpdate, onBack, onSubmit }: DipendenteF
         </div>
       )}
 
-      {data.step === 6 && (
+      {(data.step === 5 && data.tipo === "PUBBLICO/STATALE") || (data.step === 6 && data.tipo !== "PUBBLICO/STATALE") ? (
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -201,14 +223,16 @@ export function DipendenteFlow({ data, onUpdate, onBack, onSubmit }: DipendenteF
               value={data.dataAssunzione}
               onChange={(e) => updateField({ dataAssunzione: e.target.value })}
               className="h-12"
+              lang="it"
             />
+            <p className="text-xs text-slate-500 mt-1">Formato: GG/MM/AAAA</p>
           </div>
           {data.error && <p className="text-sm text-red-600">{data.error}</p>}
           <NavigationButtons onBack={handleStepBack} onNext={handleDataAssunzioneNext} />
         </div>
-      )}
+      ) : null}
 
-      {data.step === 7 && (
+      {data.step === 7 && data.tipo !== "PUBBLICO/STATALE" && (
         <div className="space-y-4">
           <SelectInput
             label="Versi il TFR ad un fondo pensione?"
@@ -221,20 +245,56 @@ export function DipendenteFlow({ data, onUpdate, onBack, onSubmit }: DipendenteF
         </div>
       )}
 
-      {data.step === 8 && (
+      {((data.step === 7 && data.tipo === "PUBBLICO/STATALE") || (data.step === 8 && data.tipo !== "PUBBLICO/STATALE")) && (
         <div className="space-y-4">
           <div className="text-center py-4 bg-green-50 rounded-xl border border-green-200">
             <p className="text-sm text-green-700 font-medium">
               Tutti i dati sono stati inseriti. Clicca su "Invia richiesta" per completare.
             </p>
           </div>
+          
+          {/* Privacy Acceptance */}
+          <div className="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200">
+            <input
+              type="checkbox"
+              id="privacy-dipendente"
+              checked={privacyAccepted}
+              onChange={(e) => setPrivacyAccepted(e.target.checked)}
+              className="mt-1 w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-2 focus:ring-blue-500"
+            />
+            <label htmlFor="privacy-dipendente" className="text-sm text-slate-700 leading-relaxed cursor-pointer">
+              Accetto il trattamento dei dati personali secondo il{" "}
+              <a
+                href={PRIVACY_POLICY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-700 underline font-medium"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Regolamento Generale sulla Protezione dei Dati (GDPR)
+              </a>
+              {" "}e la{" "}
+              <a
+                href={PRIVACY_POLICY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-700 underline font-medium"
+                onClick={(e) => e.stopPropagation()}
+              >
+                Privacy Policy di Creditplan
+              </a>
+              {" "}ai sensi del Regolamento UE 2016/679.
+            </label>
+          </div>
+
           <div className="flex gap-3">
             <Button onClick={handleStepBack} variant="outline" className="flex-1 h-12">
               Indietro
             </Button>
             <Button
               onClick={onSubmit}
-              className="flex-1 h-12 text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+              disabled={!privacyAccepted}
+              className="flex-1 h-12 text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
               Invia richiesta
             </Button>
