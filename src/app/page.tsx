@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, memo, useCallback, useMemo, lazy, Suspense } from "react";
+import { useState, memo, useCallback, useMemo, lazy, Suspense, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import dynamic from 'next/dynamic';
@@ -62,28 +62,32 @@ const BENEFITS_DATA = [
     icon: "M13 10V3L4 14h7v7l9-11h-7z",
     color: "blue",
     title: "Erogazione rapida",
-    description: "In soli 48 ore operative"
+    description: "In soli 48 ore operative",
+    detailedContent: "Con Creditplan, ricevi il tuo finanziamento in soli 48 ore operative dopo l'approvazione. Il nostro processo ottimizzato e le convenzioni con i principali istituti bancari garantiscono tempi di erogazione tra i più rapidi del mercato."
   },
   {
     icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
     color: "green",
     title: "100% sicuro",
-    description: "Certificato e garantito"
+    description: "Certificato e garantito",
+    detailedContent: "La cessione del quinto è un prodotto finanziario completamente sicuro e garantito. La trattenuta diretta in busta paga o pensione offre massima sicurezza sia per te che per l'istituto erogante. Siamo iscritti al registro OAM M30 e operiamo in totale trasparenza."
   },
   {
     icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
     color: "indigo",
     title: "Tasso fisso",
-    description: "Rata fissa e importo costante"
+    description: "Rata fissa e importo costante",
+    detailedContent: "Con la cessione del quinto, il tasso di interesse è fisso per tutta la durata del finanziamento. Questo significa che la tua rata mensile rimane sempre la stessa, senza sorprese o variazioni, permettendoti di pianificare le tue spese con totale tranquillità."
   }
 ] as const;
 
 // Memoized Benefit Card Component
-const BenefitCard = memo(({ icon, color, title, description }: {
+const BenefitCard = memo(({ icon, color, title, description, onClick }: {
   icon: string;
   color: string;
   title: string;
   description: string;
+  onClick: () => void;
 }) => {
   const colorClasses = {
     blue: "bg-blue-100 text-blue-600 border-blue-200 hover:border-blue-200",
@@ -96,7 +100,10 @@ const BenefitCard = memo(({ icon, color, title, description }: {
   const textClass = color === 'blue' ? 'text-blue-600' : color === 'green' ? 'text-green-600' : color === 'indigo' ? 'text-indigo-600' : 'text-amber-600';
 
   return (
-    <div className="flex items-start gap-3 p-4 bg-white rounded-2xl border border-slate-100 hover:border-blue-200 transition-all duration-300 hover:shadow-md">
+    <button
+      onClick={onClick}
+      className="flex items-start gap-3 p-4 bg-white rounded-2xl border border-slate-100 hover:border-blue-200 transition-all duration-300 hover:shadow-md cursor-pointer text-left w-full"
+    >
       <div className={`flex-shrink-0 w-10 h-10 ${bgClass} rounded-xl flex items-center justify-center`}>
         <svg className={`w-5 h-5 ${textClass}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={icon} />
@@ -106,7 +113,7 @@ const BenefitCard = memo(({ icon, color, title, description }: {
         <h3 className="font-bold text-slate-900">{title}</h3>
         <p className="text-sm text-slate-600">{description}</p>
       </div>
-    </div>
+    </button>
   );
 });
 
@@ -204,8 +211,82 @@ const FAQItem = memo(({
 
 FAQItem.displayName = 'FAQItem';
 
+// Benefit Modal Component
+const BenefitModal = memo(({ 
+  isOpen, 
+  onClose, 
+  benefit 
+}: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  benefit: typeof BENEFITS_DATA[number] | null;
+}) => {
+  // Handle ESC key to close modal
+  useEffect(() => {
+    if (!isOpen) return;
+    
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, onClose]);
+
+  if (!isOpen || !benefit) return null;
+
+  const bgClass = benefit.color === 'blue' ? 'bg-blue-100' : benefit.color === 'green' ? 'bg-green-100' : benefit.color === 'indigo' ? 'bg-indigo-100' : 'bg-amber-100';
+  const textClass = benefit.color === 'blue' ? 'text-blue-600' : benefit.color === 'green' ? 'text-green-600' : benefit.color === 'indigo' ? 'text-indigo-600' : 'text-amber-600';
+  const borderClass = benefit.color === 'blue' ? 'border-blue-200' : benefit.color === 'green' ? 'border-green-200' : benefit.color === 'indigo' ? 'border-indigo-200' : 'border-amber-200';
+
+  return (
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+      onClick={onClose}
+      style={{
+        animation: 'fadeIn 0.3s ease-out'
+      }}
+    >
+      <div 
+        className={`relative bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 border-2 ${borderClass}`}
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          animation: 'slideUpAndScale 0.3s ease-out'
+        }}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors"
+          aria-label="Chiudi"
+        >
+          <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        {/* Content */}
+        <div className="flex flex-col items-center text-center">
+          <div className={`w-16 h-16 ${bgClass} rounded-2xl flex items-center justify-center mb-6`}>
+            <svg className={`w-8 h-8 ${textClass}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={benefit.icon} />
+            </svg>
+          </div>
+          <h2 className="text-3xl font-bold text-slate-900 mb-4">{benefit.title}</h2>
+          <p className="text-lg text-slate-600 leading-relaxed">{benefit.detailedContent}</p>
+        </div>
+      </div>
+    </div>
+  );
+});
+
+BenefitModal.displayName = 'BenefitModal';
+
 export default function Home() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [openBenefitIndex, setOpenBenefitIndex] = useState<number | null>(null);
 
   // Memoize scroll handler
   const scrollToForm = useCallback(() => {
@@ -223,6 +304,17 @@ export default function Home() {
   const handleFaqToggle = useCallback((index: number) => {
     setOpenFaqIndex(prev => prev === index ? null : index);
   }, []);
+
+  // Memoize benefit modal handlers
+  const handleBenefitClick = useCallback((index: number) => {
+    setOpenBenefitIndex(index);
+  }, []);
+
+  const handleCloseBenefitModal = useCallback(() => {
+    setOpenBenefitIndex(null);
+  }, []);
+
+  const selectedBenefit = openBenefitIndex !== null ? BENEFITS_DATA[openBenefitIndex] : null;
 
   return (
     <main className="min-h-screen relative overflow-hidden" itemScope itemType="https://schema.org/WebPage">
@@ -291,7 +383,7 @@ export default function Home() {
               
               {/* Main Headline */}
               <header className="space-y-4">
-                <h1 className="text-5xl lg:text-7xl font-bold lg:font-black leading-[1.05] tracking-tight" itemProp="name">
+                <h1 className="text-5xl lg:text-7xl font-semibold lg:font-bold leading-[1.05] tracking-tight" itemProp="name">
                   <span className="block text-slate-900">
                     Ottieni fino a 75.000€
                   </span>
@@ -313,6 +405,7 @@ export default function Home() {
                     color={benefit.color}
                     title={benefit.title}
                     description={benefit.description}
+                    onClick={() => handleBenefitClick(idx)}
                   />
                 ))}
               </div>
@@ -352,9 +445,9 @@ export default function Home() {
       </section>
 
       {/* Why Choose Creditplan Section */}
-      <section className="relative z-10 px-6 lg:px-12 py-20" aria-labelledby="why-creditplan-heading">
+      <section className="relative z-10 px-6 lg:px-12 py-10 lg:py-20" aria-labelledby="why-creditplan-heading">
         <div className="max-w-7xl mx-auto">
-          <header className="text-center mb-16">
+          <header className="text-center mb-10 lg:mb-16">
             <h2 id="why-creditplan-heading" className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
               Perché scegliere Creditplan?
             </h2>
@@ -415,115 +508,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Bank Partnerships Section */}
-      <section className="relative z-10 px-6 lg:px-12 py-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30" aria-labelledby="bank-partnerships-heading">
-        <div className="max-w-7xl mx-auto">
-          <header className="text-center mb-12">
-            <h2 id="bank-partnerships-heading" className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Le nostre convenzioni bancarie
-            </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Collaboriamo con i primari partner sul mercato per garantirti tassi competitivi e tempi rapidi
-            </p>
-          </header>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
-            {/* Banca Sistema */}
-            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
-              <Image
-                src="https://upload.wikimedia.org/wikipedia/commons/7/79/Banca_Sistema_logo.svg"
-                alt="Banca Sistema - Partner bancario Creditplan per cessione del quinto"
-                width={200}
-                height={80}
-                className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
-                loading="lazy"
-              />
-            </div>
-
-            {/* Capital Fin */}
-            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
-              <Image
-                src="https://www.bancaifis.it/app/uploads/2025/03/CAPITALFIN_Logo_Footer_Blu.svg"
-                alt="Capital Fin - Partner bancario Creditplan per prestiti e finanziamenti"
-                width={260}
-                height={104}
-                className="w-full h-auto max-h-[5.5rem] object-contain grayscale group-hover:grayscale-0 transition-all duration-300 mt-4 ml-2"
-                loading="lazy"
-              />
-            </div>
-
-            {/* Fincontinuo */}
-            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
-              <Image
-                src="https://www.fincontinuo.com/hubfs/fincontinuo-logo.svg"
-                alt="Fincontinuo - Partner finanziario Creditplan per cessione del quinto"
-                width={200}
-                height={80}
-                className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
-                loading="lazy"
-              />
-            </div>
-
-            {/* Bank Logo 4 */}
-            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
-              <Image
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ68VRQtS9RBsKX4NXmQNzByi5hqhEGf7vc1w&s"
-                alt="Partner bancario convenzionato Creditplan per prestiti e finanziamenti"
-                width={200}
-                height={80}
-                className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
-                loading="lazy"
-              />
-            </div>
-
-            {/* Last 3 logos - centered */}
-            <div className="col-span-2 md:col-span-3 lg:col-span-4 flex flex-wrap justify-center gap-6 lg:gap-8">
-              {/* Bank Logo 5 */}
-              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
-                <Image
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2_zu4rkVrkobpR88917ZnpI4RPD3zz3tXRw&s"
-                  alt="Partner bancario convenzionato Creditplan per cessione del quinto"
-                  width={200}
-                  height={80}
-                  className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
-                  loading="lazy"
-                />
-              </div>
-
-              {/* IBL Banca */}
-              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
-                <Image
-                  src="https://thebanks.eu/img/logos/IBL_Banca.png"
-                  alt="IBL Banca - Partner bancario Creditplan per cessione del quinto e prestiti"
-                  width={200}
-                  height={80}
-                  className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
-                  loading="lazy"
-                />
-              </div>
-
-              {/* Bank Logo 7 */}
-              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
-                <Image
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3zTLQW74Q-2PPo5vC0p0tkJ_xOYRUJUbDiA&s"
-                  alt="Partner bancario convenzionato Creditplan per finanziamenti e prestiti"
-                  width={200}
-                  height={80}
-                  className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-sm text-slate-600">
-              <span className="font-semibold text-slate-900">Partner convenzionati INPS</span> - Garantiamo sicurezza e affidabilità
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* How It Works Section */}
       <section className="relative z-10 px-6 lg:px-12 py-20 bg-white/50" aria-labelledby="how-it-works-heading" itemScope itemType="https://schema.org/HowTo">
         <div className="max-w-7xl mx-auto">
@@ -537,17 +521,17 @@ export default function Home() {
           </header>
 
           {/* Trust Image */}
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-xl mx-auto">
             <Image
               src="https://creditplan.it/wp-content/uploads/2025/11/Progetto-senza-titolo-3.png"
               alt="Come funziona la cessione del quinto con Creditplan - Processo in 3 semplici passaggi"
-              width={1200}
-              height={600}
+              width={600}
+              height={300}
               quality={60}
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
               className="w-full h-auto object-cover rounded-xl"
             />
           </div>
@@ -667,6 +651,115 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Bank Partnerships Section */}
+      <section className="relative z-10 px-6 lg:px-12 py-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30" aria-labelledby="bank-partnerships-heading">
+        <div className="max-w-7xl mx-auto">
+          <header className="text-center mb-12">
+            <h2 id="bank-partnerships-heading" className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+              Le nostre convenzioni bancarie
+            </h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Collaboriamo con i primari partner sul mercato per garantirti tassi competitivi e tempi rapidi
+            </p>
+          </header>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
+            {/* Banca Sistema */}
+            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
+              <Image
+                src="https://upload.wikimedia.org/wikipedia/commons/7/79/Banca_Sistema_logo.svg"
+                alt="Banca Sistema - Partner bancario Creditplan per cessione del quinto"
+                width={200}
+                height={80}
+                className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Capital Fin */}
+            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
+              <Image
+                src="https://www.bancaifis.it/app/uploads/2025/03/CAPITALFIN_Logo_Footer_Blu.svg"
+                alt="Capital Fin - Partner bancario Creditplan per prestiti e finanziamenti"
+                width={260}
+                height={104}
+                className="w-full h-auto max-h-[5.5rem] object-contain grayscale group-hover:grayscale-0 transition-all duration-300 mt-4 ml-2"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Fincontinuo */}
+            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
+              <Image
+                src="https://www.fincontinuo.com/hubfs/fincontinuo-logo.svg"
+                alt="Fincontinuo - Partner finanziario Creditplan per cessione del quinto"
+                width={200}
+                height={80}
+                className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Bank Logo 4 */}
+            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
+              <Image
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ68VRQtS9RBsKX4NXmQNzByi5hqhEGf7vc1w&s"
+                alt="Partner bancario convenzionato Creditplan per prestiti e finanziamenti"
+                width={200}
+                height={80}
+                className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Last 3 logos - centered */}
+            <div className="col-span-2 md:col-span-3 lg:col-span-4 flex flex-wrap justify-center gap-6 lg:gap-8">
+              {/* Bank Logo 5 */}
+              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
+                <Image
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2_zu4rkVrkobpR88917ZnpI4RPD3zz3tXRw&s"
+                  alt="Partner bancario convenzionato Creditplan per cessione del quinto"
+                  width={200}
+                  height={80}
+                  className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* IBL Banca */}
+              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
+                <Image
+                  src="https://thebanks.eu/img/logos/IBL_Banca.png"
+                  alt="IBL Banca - Partner bancario Creditplan per cessione del quinto e prestiti"
+                  width={200}
+                  height={80}
+                  className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Bank Logo 7 */}
+              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
+                <Image
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3zTLQW74Q-2PPo5vC0p0tkJ_xOYRUJUbDiA&s"
+                  alt="Partner bancario convenzionato Creditplan per finanziamenti e prestiti"
+                  width={200}
+                  height={80}
+                  className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-sm text-slate-600">
+              <span className="font-semibold text-slate-900">Partner convenzionati INPS</span> - Garantiamo sicurezza e affidabilità
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section className="relative z-10 px-6 lg:px-12 py-24 overflow-hidden" aria-labelledby="faq-heading" itemScope itemType="https://schema.org/FAQPage">
         {/* Background Elements */}
@@ -776,6 +869,13 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Benefit Modal */}
+      <BenefitModal
+        isOpen={openBenefitIndex !== null}
+        onClose={handleCloseBenefitModal}
+        benefit={selectedBenefit}
+      />
 
     </main>
   );
