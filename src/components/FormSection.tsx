@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useFormState } from "@/hooks/useFormState";
 import { ProgressBar } from "./form/ProgressBar";
 import { PensionatoFlow } from "./form/PensionatoFlow";
@@ -24,6 +24,8 @@ const formSchema = z.object({
 });
 
 export function FormSection() {
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -55,20 +57,100 @@ export function FormSection() {
     resetForm,
   } = useFormState(form);
 
-  const onSubmit = useCallback((values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = useCallback(async (values: z.infer<typeof formSchema>) => {
+    if (!userPosition) {
+      console.error('User position not selected');
+      setSubmitError('Seleziona la tua posizione prima di inviare il form.');
+      return;
+    }
+
     setIsLoading(true);
-    
-    setTimeout(() => {
+    setSubmitError(null);
+
+    try {
+      // Create JSON payload based on user position
+      let payload: any;
+      let endpoint: string;
+
+      if (userPosition === "DIPENDENTE") {
+        // Combine personal info with dipendente data
+        payload = {
+          // Personal information
+          nome: values.nome,
+          cognome: values.cognome,
+          mail: values.mail,
+          telefono: values.telefono,
+          meseNascita: values.meseNascita,
+          annoNascita: values.annoNascita,
+          // Dipendente specific data
+          amount: dipendente.amount,
+          salary: dipendente.salary,
+          tipo: dipendente.tipo,
+          contratto: dipendente.contratto,
+          numDipendenti: dipendente.numDipendenti || null,
+          dataAssunzione: dipendente.dataAssunzione || null,
+          tfr: dipendente.tfr || null,
+          // Metadata
+          userPosition: "DIPENDENTE",
+          submittedAt: new Date().toISOString(),
+        };
+        endpoint = '/api/dipendente';
+      } else if (userPosition === "PENSIONATO") {
+        // Combine personal info with pensionato data
+        payload = {
+          // Personal information
+          nome: values.nome,
+          cognome: values.cognome,
+          mail: values.mail,
+          telefono: values.telefono,
+          meseNascita: values.meseNascita,
+          annoNascita: values.annoNascita,
+          // Pensionato specific data
+          amount: pensionato.amount,
+          pension: pensionato.pension,
+          tipo: pensionato.tipo,
+          ente: pensionato.ente,
+          // Metadata
+          userPosition: "PENSIONATO",
+          submittedAt: new Date().toISOString(),
+        };
+        endpoint = 'https://accelera-crm-production.up.railway.app/api/forms/quinto-pensionati-leads';
+      } else {
+        throw new Error('Invalid user position');
+      }
+
+      // Send JSON to appropriate endpoint
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ error: 'Errore sconosciuto' }));
+        throw new Error(errorData.error || `Errore HTTP: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('Form submitted successfully:', result);
+      
       setIsLoading(false);
       setIsSubmitted(true);
-    }, 2500);
-  }, [setIsLoading, setIsSubmitted]);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setIsLoading(false);
+      const errorMessage = error instanceof Error ? error.message : 'Si è verificato un errore durante l\'invio del form. Riprova più tardi.';
+      setSubmitError(errorMessage);
+    }
+  }, [setIsLoading, setIsSubmitted, userPosition, dipendente, pensionato]);
 
   const handlePositionSelect = useCallback((position: UserPosition) => {
     setUserPosition(position);
     setPensionato({ ...pensionato, step: 1, error: "" });
     setDipendente({ ...dipendente, step: 1, error: "" });
+    setSubmitError(null);
   }, [setUserPosition, setPensionato, setDipendente, pensionato, dipendente]);
 
   const handleBack = useCallback(() => {
@@ -231,6 +313,30 @@ export function FormSection() {
         </CardHeader>
 
         <CardContent className="pt-0 space-y-6">
+          {/* Error Message */}
+          {submitError && !isLoading && !isSubmitted && (
+            <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
+              <div className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div>
+                  <p className="text-sm font-medium text-red-800">Errore nell'invio</p>
+                  <p className="text-sm text-red-700 mt-1">{submitError}</p>
+                </div>
+                <button
+                  onClick={() => setSubmitError(null)}
+                  className="ml-auto text-red-600 hover:text-red-800"
+                  aria-label="Chiudi errore"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Personal Info Form */}
           {showPersonalInfo && (
             <Form {...form}>
@@ -365,31 +471,6 @@ export function FormSection() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </Button>
-                
-                {/* Trust indicators */}
-                <div className="space-y-3 pt-2">
-                  <div className="flex items-center justify-center gap-2 text-xs text-slate-500">
-                    <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>Dati protetti e criptati • Nessuna condivisione con terzi</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-4 text-xs text-slate-400">
-                    <div className="flex items-center gap-1">
-                      <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                      </svg>
-                      <span>Tempo medio: 90 sec</span>
-                    </div>
-                    <span>•</span>
-                    <div className="flex items-center gap-1">
-                      <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                      </svg>
-                      <span>2.147 richieste questo mese</span>
-                    </div>
-                  </div>
-                </div>
               </form>
             </Form>
           )}

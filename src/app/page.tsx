@@ -773,10 +773,16 @@ export default function Home() {
               {/* Main Headline */}
               <header className="space-y-4">
                 <h1 className="text-5xl lg:text-7xl font-semibold lg:font-bold leading-[1.05] tracking-tight" itemProp="name">
-                  <span className="block text-slate-900">
-                    Ottieni fino a 75.000€
+                  <span className="block bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
+                    Ottieni fino a{' '}
+                    <span className="relative inline-block">
+                      <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 bg-clip-text text-transparent font-extrabold">
+                        75.000€
+                      </span>
+                      <span className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 via-indigo-600/20 to-blue-600/20 blur-xl -z-10 rounded-lg"></span>
+                    </span>
                   </span>
-                  <span className="block text-slate-900">
+                  <span className="block bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent">
                     con la cessione del quinto
                   </span>
                 </h1>
@@ -923,7 +929,7 @@ export default function Home() {
                 key={idx}
                 onClick={() => handleHowItWorksClick(idx)}
                 className="relative group text-left w-full" 
-                itemScope 
+                itemScope
                 itemType="https://schema.org/HowToStep" 
                 itemProp="step"
               >
@@ -1202,7 +1208,7 @@ export default function Home() {
                 className="w-auto h-8 select-none"
                 style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none' }}
               />
-              <p className="text-sm text-slate-600" itemProp="copyrightHolder">
+              <p className="text-sm text-slate-600 text-center md:text-left" itemProp="copyrightHolder">
                 © 2025 Creditplan Italia Network di Mediazione Credizia. Tutti i diritti riservati.
               </p>
             </div>
