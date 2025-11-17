@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import Link from "next/link";
+import ConversionEvent from "@/components/ConversionEvent";
 
 export const metadata: Metadata = {
   title: "Richiesta inviata | Grazie",
@@ -11,18 +11,7 @@ export const metadata: Metadata = {
 export default function GraziePage() {
   return (
     <main className="min-h-[80vh] flex items-center justify-center px-4 py-16">
-      {/* Google Ads Conversion Event */}
-      <Script id="gtag-conversion-grazie" strategy="afterInteractive">
-        {`
-          if (typeof gtag === 'function') {
-            gtag('event', 'conversion', {
-              'send_to': 'AW-17086810445/XkJLCJSzz8gaEM2S0NM_',
-              'value': 1.0,
-              'currency': 'EUR'
-            });
-          }
-        `}
-      </Script>
+      <ConversionEvent />
 
       <div className="w-full max-w-2xl">
         <div className="relative bg-white shadow-2xl border-0 rounded-3xl overflow-hidden">
