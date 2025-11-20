@@ -1,5 +1,93 @@
 # Sample JSON Examples for Form Submissions
 
+## SIMPLIFIED FORM (Current Form - 2 Steps)
+
+**Endpoint:** `POST /api/forms/quinto-pensionati-leads`
+
+**Sample JSON:**
+```json
+{
+  "nome": "Mario",
+  "cognome": "Rossi",
+  "mail": "mario.rossi@email.it",
+  "telefono": "+39 333 123 4567",
+  "impiego": "Dipendente statale",
+  "nettoMensile": 1500,
+  "importoRichiesto": 25000,
+  "submittedAt": "2025-01-15T14:32:18.123Z"
+}
+```
+
+**Data Types:**
+- `nome`: **string** (min 2 characters)
+- `cognome`: **string** (min 2 characters)
+- `mail`: **string** (valid email format)
+- `telefono`: **string** (min 10 characters)
+- `impiego`: **string** (one of: "Dipendente statale", "Dipendente Pubblico", "Dipendente Parapubblico", "Dipendente azienda privata con più di 16 impiegati", "Pensionato")
+- `nettoMensile`: **number** (net monthly income, e.g., 1500) ⚠️ **NOT a string**
+- `importoRichiesto`: **number** (requested loan amount, e.g., 25000) ⚠️ **NOT a string**
+- `submittedAt`: **string** (ISO 8601 timestamp, e.g., "2025-01-15T14:32:18.123Z")
+
+**Alternative examples:**
+
+**Dipendente Pubblico:**
+```json
+{
+  "nome": "Giulia",
+  "cognome": "Bianchi",
+  "mail": "giulia.bianchi@email.it",
+  "telefono": "+39 340 987 6543",
+  "impiego": "Dipendente Pubblico",
+  "nettoMensile": 2200,
+  "importoRichiesto": 35000,
+  "submittedAt": "2025-01-15T16:45:22.456Z"
+}
+```
+
+**Dipendente Parapubblico:**
+```json
+{
+  "nome": "Paolo",
+  "cognome": "Ferrari",
+  "mail": "paolo.ferrari@email.it",
+  "telefono": "+39 345 111 2222",
+  "impiego": "Dipendente Parapubblico",
+  "nettoMensile": 2000,
+  "importoRichiesto": 30000,
+  "submittedAt": "2025-01-15T18:30:10.789Z"
+}
+```
+
+**Dipendente azienda privata:**
+```json
+{
+  "nome": "Anna",
+  "cognome": "Neri",
+  "mail": "anna.neri@email.it",
+  "telefono": "+39 366 777 8888",
+  "impiego": "Dipendente azienda privata con più di 16 impiegati",
+  "nettoMensile": 1800,
+  "importoRichiesto": 28000,
+  "submittedAt": "2025-01-15T11:20:45.012Z"
+}
+```
+
+**Pensionato:**
+```json
+{
+  "nome": "Luigi",
+  "cognome": "Verdi",
+  "mail": "luigi.verdi@email.it",
+  "telefono": "+39 335 555 1234",
+  "impiego": "Pensionato",
+  "nettoMensile": 1200,
+  "importoRichiesto": 20000,
+  "submittedAt": "2025-01-15T10:15:30.789Z"
+}
+```
+
+---
+
 ## DIPENDENTE (Employee) Form Submission
 
 **Endpoint:** `POST /api/forms/quinto-dipendenti`

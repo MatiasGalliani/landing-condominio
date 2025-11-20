@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const EXTERNAL_API_BASE = 'https://accelera-crm-production.up.railway.app';
+const EXTERNAL_API_BASE = 'http://localhost:3001';
 
 export async function POST(request: NextRequest) {
   try {
