@@ -14,44 +14,20 @@ const FormSection = dynamic(() => import('@/components/FormSection').then(mod =>
 // Extract static data outside component to prevent recreation
 const FAQ_ITEMS = [
   {
-    question: "Cos'è la Cessione del Quinto?",
-    answer: "La cessione del quinto è un prestito garantito con trattenuta diretta in busta paga o sulla pensione. Può essere richiesto senza dovere fornire motivazioni e l'importo massimo della rata non può eccedere il 20% dello stipendio netto mensile (un quinto)."
+    question: "Quali tipi di lavori possono essere finanziati?",
+    answer: "Ristrutturazione facciate, tetti, installazione ascensori, cappotto termico e impianti fotovoltaici."
   },
   {
-    question: "Quali sono i costi e le commissioni associate?",
-    answer: "Nessun costo o commissioni accessorie; l'importo richiesto viene erogato \"chiavi in mano\"."
+    question: "È necessaria la firma di tutti i condòmini?",
+    answer: "No, il finanziamento viene deliberato dall'assemblea e sottoscritto dall'amministratore pro-tempore."
   },
   {
-    question: "Quanto tempo serve per ottenere il prestito?",
-    answer: "Con Creditplan puoi ottenere la liquidità necessaria in pochi giorni grazie ai nostri partner bancari specializzati e al team qualificato."
+    question: "Qual è la durata massima del finanziamento?",
+    answer: "Offriamo piani flessibili che possono arrivare fino a 120 mesi (10 anni)."
   },
   {
-    question: "Quali requisiti devo avere per richiedere la Cessione del Quinto?",
-    answer: "Puoi richiedere la Cessione del Quinto se sei un lavoratore dipendente (pubblico/statale o privato) con contratto a tempo indeterminato o un pensionato. Non è richiesto alcun garante."
-  },
-  {
-    question: "Esiste un limite massimo di età per la Cessione del Quinto?",
-    answer: "Sì, i pensionati possono ottenere il prestito fino a 89 anni alla scadenza del finanziamento."
-  },
-  {
-    question: "Cosa succede se non raggiungo i requisiti per rinnovare una Cessione del Quinto già in corso?",
-    answer: "In caso di mancato raggiungimento dei termini per il rinnovo, possiamo valutare insieme la Delegazione di Pagamento, una seconda trattenuta sullo stipendio che permette di ottenere ulteriore liquidità."
-  },
-  {
-    question: "Perché dovrei scegliere Creditplan?",
-    answer: "Le nostre convenzioni bancarie con i primari partner sul mercato, ci permettono di avere tassi competitivi e tempi rapidi di erogazione."
-  },
-  {
-    question: "Posso richiedere il prestito se sono stato segnalato come cattivo pagatore?",
-    answer: "Sì, la Cessione del Quinto è accessibile anche in caso di segnalazioni o protesti, in quanto non tiene conto delle segnalazioni nelle banche dati pubbliche."
-  },
-  {
-    question: "È possibile estinguere anticipatamente la Cessione del Quinto?",
-    answer: "Sì, puoi estinguere anticipatamente il prestito in qualsiasi momento beneficiando dello storno degli interessi futuri dovuti."
-  },
-  {
-    question: "Quanto costa la consulenza con Creditplan?",
-    answer: "Nessun costo accessorio."
+    question: "Esistono costi anticipati?",
+    answer: "No, la consulenza preliminare è gratuita e non vincolante."
   }
 ] as const;
 
@@ -118,23 +94,23 @@ const BENEFITS_DATA = [
   {
     icon: "M13 10V3L4 14h7v7l9-11h-7z",
     color: "blue",
-    title: "Erogazione rapida",
-    description: "In soli 48 ore operative",
-    detailedContent: "Con Creditplan, ricevi il tuo finanziamento in soli 48 ore operative dopo l'approvazione. Il nostro processo ottimizzato e le convenzioni con i principali istituti bancari garantiscono tempi di erogazione tra i più rapidi del mercato."
+    title: "Erogazione Diretta",
+    description: "Fondi disponibili per l'inizio dei lavori senza ritardi",
+    detailedContent: "Fondi disponibili per l'inizio dei lavori senza ritardi. Con AICondomini, il finanziamento viene erogato direttamente al condominio, permettendo di iniziare i lavori immediatamente senza attendere la raccolta delle quote dai singoli condòmini."
   },
   {
     icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
     color: "green",
-    title: "100% sicuro",
-    description: "Certificato e garantito",
-    detailedContent: "La cessione del quinto è un prodotto finanziario completamente sicuro e garantito. La trattenuta diretta in busta paga o pensione offre massima sicurezza sia per te che per l'istituto erogante. Siamo iscritti al registro OAM M30 e operiamo in totale trasparenza."
+    title: "Zero Garanzie",
+    description: "Il prestito è a carico del condominio, non dei singoli condòmini",
+    detailedContent: "Il prestito è a carico del condominio, non dei singoli condòmini. Questo significa che non è necessario richiedere garanzie personali ai condòmini, rendendo il processo più semplice e veloce."
   },
   {
     icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
     color: "indigo",
-    title: "Tasso fisso",
-    description: "Rata fissa e importo costante",
-    detailedContent: "Con la cessione del quinto, il tasso di interesse è fisso per tutta la durata del finanziamento. Questo significa che la tua rata mensile rimane sempre la stessa, senza sorprese o variazioni, permettendoti di pianificare le tue spese con totale tranquillità."
+    title: "Flessibilità",
+    description: "Piani di rimborso personalizzati fino a 10 anni",
+    detailedContent: "Piani di rimborso personalizzati fino a 10 anni. Offriamo soluzioni di finanziamento flessibili che si adattano alle esigenze del tuo condominio, con piani di rimborso che possono arrivare fino a 120 mesi."
   }
 ] as const;
 
@@ -142,9 +118,9 @@ const WHY_CHOOSE_BENEFITS_DATA = [
   {
     icon: "M13 10V3L4 14h7v7l9-11h-7z",
     color: "blue",
-    title: "Velocità garantita",
-    description: "Approvazione preliminare in sole 24 ore lavorative",
-    detailedContent: "Con Creditplan, ricevi l'approvazione preliminare del tuo finanziamento in sole 24 ore lavorative. Il nostro team di consulenti esperti lavora in modo efficiente per valutare rapidamente la tua richiesta, garantendoti una risposta tempestiva e trasparente. Grazie alle nostre convenzioni con i principali istituti bancari, possiamo accelerare ogni fase del processo.",
+    title: "Supporto in Assemblea",
+    description: "Forniamo tutto il materiale tecnico e legale per facilitare la delibera condominiale",
+    detailedContent: "Forniamo tutto il materiale tecnico e legale per facilitare la delibera condominiale. Il nostro team ti supporta in ogni fase del processo assembleare, fornendo documentazione completa e chiara per ottenere l'approvazione dei lavori.",
     gradientFrom: "from-blue-500",
     gradientTo: "to-blue-600",
     borderColor: "border-blue-200",
@@ -154,9 +130,9 @@ const WHY_CHOOSE_BENEFITS_DATA = [
   {
     icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
     color: "green",
-    title: "Tranquillità totale",
-    description: "Rata fissa e importo costante per tutta la durata",
-    detailedContent: "Con la cessione del quinto, la tua rata mensile rimane sempre la stessa per tutta la durata del finanziamento. Non ci saranno sorprese o variazioni inaspettate: l'importo della rata è fisso e garantito, permettendoti di pianificare le tue spese con totale tranquillità e sicurezza finanziaria.",
+    title: "Specialisti Eco-Bonus",
+    description: "Gestiamo le pratiche di finanziamento per lavori di riqualificazione energetica",
+    detailedContent: "Gestiamo le pratiche di finanziamento per lavori di riqualificazione energetica. Siamo esperti nelle normative e negli incentivi legati al risparmio energetico, e ti aiutiamo a massimizzare i benefici per il tuo condominio.",
     gradientFrom: "from-emerald-500",
     gradientTo: "to-emerald-600",
     borderColor: "border-emerald-200",
@@ -166,9 +142,9 @@ const WHY_CHOOSE_BENEFITS_DATA = [
   {
     icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
     color: "amber",
-    title: "Massima trasparenza",
-    description: "Nessun costo nascosto, istruttoria gratuita e comunicazioni incluse",
-    detailedContent: "Con Creditplan, la trasparenza è al primo posto. Non ci sono costi nascosti o sorprese: l'istruttoria è completamente gratuita e tutte le comunicazioni sono incluse. Ti forniamo tutte le informazioni necessarie in modo chiaro e comprensibile, senza termini ambigui o clausole nascoste. La tua fiducia è la nostra priorità.",
+    title: "Gestione Burocrazia",
+    description: "Ci occupiamo noi di tutta la documentazione bancaria, dall'inizio alla fine",
+    detailedContent: "Ci occupiamo noi di tutta la documentazione bancaria, dall'inizio alla fine. Non dovrai preoccuparti della burocrazia: il nostro team gestisce tutte le pratiche con banche e istituti finanziari, permettendoti di concentrarti sui lavori.",
     gradientFrom: "from-amber-500",
     gradientTo: "to-amber-600",
     borderColor: "border-amber-200",
@@ -180,21 +156,21 @@ const WHY_CHOOSE_BENEFITS_DATA = [
 const HOW_IT_WORKS_STEPS = [
   {
     step: 1,
-    title: "Compila il form",
-    description: "Inserisci i tuoi dati in meno di 2 minuti. Nessun documento richiesto in questa fase.",
-    detailedContent: "Il primo passo è semplicissimo: compila il nostro form online con i tuoi dati personali e lavorativi. Non serve alcun documento in questa fase iniziale - bastano pochi minuti per inserire le informazioni necessarie. Il form è completamente sicuro e i tuoi dati sono protetti. Una volta inviato, la tua richiesta viene immediatamente presa in carico dal nostro team."
+    title: "Analisi Preliminare",
+    description: "Valutiamo la fattibilità del progetto e la solvibilità del condominio in 48 ore.",
+    detailedContent: "Valutiamo la fattibilità del progetto e la solvibilità del condominio in 48 ore. Il nostro team analizza attentamente la documentazione del condominio e la tipologia di lavori da finanziare, fornendo una risposta rapida e trasparente sulla fattibilità del finanziamento."
   },
   {
     step: 2,
-    title: "Ricevi la chiamata",
-    description: "Un nostro consulente esperto ti contatterà entro 2 ore per discutere la tua situazione.",
-    detailedContent: "Entro 2 ore dall'invio del form, un nostro consulente esperto ti contatterà telefonicamente. Durante questa chiamata gratuita e senza impegno, avrai l'opportunità di discutere la tua situazione finanziaria, chiarire eventuali dubbi e ricevere una consulenza personalizzata. Il nostro consulente ti guiderà attraverso tutte le opzioni disponibili e ti aiuterà a trovare la soluzione migliore per le tue esigenze."
+    title: "Delibera e Firma",
+    description: "Supportiamo l'amministratore nella presentazione del piano in assemblea.",
+    detailedContent: "Supportiamo l'amministratore nella presentazione del piano in assemblea. Forniamo tutto il materiale necessario per facilitare la delibera condominiale e assistiamo l'amministratore in ogni fase del processo decisionale, garantendo la massima trasparenza verso tutti i condòmini."
   },
   {
     step: 3,
-    title: "Ricevi il denaro",
-    description: "Dopo l'approvazione, ricevi il tuo finanziamento sul conto in 48 ore.",
-    detailedContent: "Dopo l'approvazione della tua richiesta, il finanziamento viene erogato direttamente sul tuo conto corrente in sole 48 ore operative. Non ci sono ritardi o complicazioni: una volta approvato, il denaro arriva velocemente e in modo sicuro. La rata mensile verrà trattenuta direttamente dalla tua busta paga o pensione, senza dover ricordare scadenze o effettuare bonifici manuali."
+    title: "Liquidità Immediata",
+    description: "Una volta approvato, i fondi vengono erogati per dare il via ai lavori.",
+    detailedContent: "Una volta approvato, i fondi vengono erogati per dare il via ai lavori. Il finanziamento viene trasferito direttamente al condominio, permettendo di iniziare immediatamente i lavori senza ritardi o complicazioni burocratiche."
   }
 ] as const;
 
@@ -827,10 +803,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <header className="text-center mb-10 lg:mb-16">
             <h2 id="why-creditplan-heading" className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Perché scegliere Creditplan?
+              Perché scegliere AICondomini?
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Semplifichiamo ogni aspetto del tuo finanziamento
+              Esperti nella mediazione creditizia per il settore immobiliare.
             </p>
           </header>
 
@@ -908,10 +884,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <header className="text-center mb-16">
             <h2 id="how-it-works-heading" className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4" itemProp="name">
-              Come funziona
+              Come otteniamo il finanziamento
             </h2>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto" itemProp="description">
-              Un processo semplice e veloce in soli 3 passaggi
+              Un processo chiaro, trasparente e digitale.
             </p>
           </header>
 
@@ -965,7 +941,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl blur-2xl opacity-20"></div>
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="https://creditplan.it/wp-content/uploads/2023/02/03_CSQ.jpg"
+                  src="/img2.png"
                   alt="Famiglia soddisfatta con Creditplan - Cessione del quinto per realizzare i propri progetti"
                   width={800}
                   height={600}
@@ -992,19 +968,19 @@ export default function Home() {
                       <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                       <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
                     </svg>
-                    <span>Oltre 2.000 famiglie soddisfatte</span>
+                    <span>Pronti a partire?</span>
                   </div>
                   <h2 className="text-3xl lg:text-5xl font-bold text-white mb-4">
-                    Pronto a iniziare?
+                    Non bloccare i lavori per mancanza di liquidità.
                   </h2>
                   <p className="text-lg lg:text-xl text-blue-100 mb-8 leading-relaxed">
-                    Unisciti a migliaia di clienti soddisfatti. Il tuo finanziamento è a portata di clic.
+                    Unisciti agli amministratori che hanno già trasformato i loro stabili con AICondomini. Richiedi oggi un preventivo personalizzato.
                   </p>
                   <Button
                     onClick={scrollToForm}
                     className="bg-white text-blue-600 hover:bg-blue-50 h-14 px-8 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
                   >
-                    Richiedi subito
+                    Parla con un esperto ora
                     <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
@@ -1013,12 +989,12 @@ export default function Home() {
                   {/* Stats */}
                   <div className="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-white/20">
                     <div>
-                      <div className="text-3xl font-bold text-white">48h</div>
-                      <div className="text-sm text-blue-100">Tempo medio</div>
+                      <div className="text-3xl font-bold text-white">+20M€</div>
+                      <div className="text-sm text-blue-100">Finanziati nel 2025</div>
                     </div>
                     <div>
-                      <div className="text-3xl font-bold text-white">98%</div>
-                      <div className="text-sm text-blue-100">Soddisfazione</div>
+                      <div className="text-3xl font-bold text-white">48h</div>
+                      <div className="text-sm text-blue-100">Tempo medio di risposta</div>
                     </div>
                   </div>
                 </div>
