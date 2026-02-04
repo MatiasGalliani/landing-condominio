@@ -882,7 +882,7 @@ export default function Home() {
       {/* How It Works Section */}
       <section className="relative z-10 px-6 lg:px-12 py-20 bg-white/50" aria-labelledby="how-it-works-heading" itemScope itemType="https://schema.org/HowTo">
         <div className="max-w-7xl mx-auto">
-          <header className="text-center mb-16">
+          <header className="text-center mb-8">
             <h2 id="how-it-works-heading" className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4" itemProp="name">
               Come otteniamo il finanziamento
             </h2>
@@ -894,7 +894,7 @@ export default function Home() {
           {/* Trust Image */}
           <div className="max-w-xl mx-auto">
             <Image
-              src="https://creditplan.it/wp-content/uploads/2025/11/Progetto-senza-titolo-3.png"
+              src="/img3.png"
               alt="Come funziona la cessione del quinto con Creditplan - Processo in 3 semplici passaggi"
               width={600}
               height={300}
