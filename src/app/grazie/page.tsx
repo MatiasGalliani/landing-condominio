@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ConversionEvent from "@/components/ConversionEvent";
 
 export const metadata: Metadata = {
   title: "Richiesta inviata | Grazie",
@@ -11,8 +10,6 @@ export const metadata: Metadata = {
 export default function GraziePage() {
   return (
     <main className="min-h-[80vh] flex items-center justify-center px-4 py-16">
-      <ConversionEvent />
-
       <div className="w-full max-w-2xl">
         <div className="relative bg-white shadow-2xl border-0 rounded-3xl overflow-hidden">
           <div className="p-10 text-center">
