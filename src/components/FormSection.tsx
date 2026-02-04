@@ -107,8 +107,7 @@ export function FormSection() {
     <div className="relative" id="form-section">
       <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl opacity-10"></div>
       <Card className="relative bg-white shadow-2xl border-0 overflow-hidden">
-        <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500"></div>
-
+      <div className="absolute top-0 inset-x-0 h-1 bg-[#090075]"></div>
         <CardHeader className="space-y-3 pb-6">
           <div className="text-center">
             <CardTitle className="text-2xl lg:text-3xl font-bold text-slate-900 mb-2">

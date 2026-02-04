@@ -743,7 +743,7 @@ export default function Home() {
                     className="w-11 h-11 object-contain"
                   />
                 </div>
-                <div className="flex items-center justify-center gap-1.5 text-xs text-blue-600 font-medium">
+                <div className="flex items-center justify-center gap-1.5 text-xs text-[#090075] font-medium">
                   <span>Verifica in tempo reale</span>
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -769,10 +769,9 @@ export default function Home() {
                   <span className="block bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
                     Il credito{' '}
                     <span className="relative inline-block">
-                    <span className="font-extrabold text-[#090075]">
-  su misura con IA
-</span>
-                      <span className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 via-indigo-600/20 to-blue-600/20 blur-xl -z-10 rounded-lg"></span>
+                      <span className="font-extrabold text-[#090075]">
+                        su misura con IA
+                      </span>
                     </span>
                   </span>
                   <span className="block bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent">
