@@ -237,61 +237,55 @@ const BenefitCard = memo(({ icon, color, title, description, onClick }: {
 BenefitCard.displayName = 'BenefitCard';
 
 // Memoized FAQ Item Component
-const FAQItem = memo(({ 
-  faq, 
-  index, 
-  isOpen, 
-  onToggle 
-}: { 
-  faq: typeof FAQ_ITEMS[number]; 
-  index: number; 
-  isOpen: boolean; 
+const FAQItem = memo(({
+  faq,
+  index,
+  isOpen,
+  onToggle
+}: {
+  faq: typeof FAQ_ITEMS[number];
+  index: number;
+  isOpen: boolean;
   onToggle: () => void;
 }) => (
-  <div className={`group relative bg-white/90 backdrop-blur-sm rounded-2xl border transition-all duration-300 overflow-hidden ${
-    isOpen 
-      ? 'border-blue-200 shadow-lg shadow-blue-100/50' 
-      : 'border-slate-200 shadow-sm hover:border-blue-100 hover:shadow-md'
-  }`} itemScope itemType="https://schema.org/Question">
+  <div className={`group relative bg-white/90 backdrop-blur-sm rounded-2xl border transition-all duration-300 overflow-hidden ${isOpen
+    ? 'border-blue-200 shadow-lg shadow-blue-100/50'
+    : 'border-slate-200 shadow-sm hover:border-blue-100 hover:shadow-md'
+    }`} itemScope itemType="https://schema.org/Question">
     {/* Gradient accent line - only visible when open */}
-    <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 transition-opacity duration-300 ${
-      isOpen ? 'opacity-100' : 'opacity-0'
-    }`}></div>
-    
+    <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0'
+      }`}></div>
+
     <button
       onClick={onToggle}
       className="w-full px-6 lg:px-8 py-6 text-left flex items-start justify-between gap-4 group"
     >
       <div className="flex items-start gap-4 flex-1">
         {/* Question number badge */}
-        <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold transition-all duration-300 ${
-          isOpen 
-            ? 'bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-md' 
-            : 'bg-slate-100 text-slate-500 group-hover:bg-blue-50 group-hover:text-blue-600'
-        }`}>
+        <div className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold transition-all duration-300 ${isOpen
+          ? 'bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-md'
+          : 'bg-slate-100 text-slate-500 group-hover:bg-blue-50 group-hover:text-blue-600'
+          }`}>
           {index + 1}
         </div>
-        
-        <h3 className={`text-base lg:text-lg font-bold transition-colors duration-300 ${
-          isOpen 
-            ? 'text-blue-600' 
-            : 'text-slate-900 group-hover:text-blue-600'
-        }`} itemProp="name">
+
+        <h3 className={`text-base lg:text-lg font-bold transition-colors duration-300 ${isOpen
+          ? 'text-blue-600'
+          : 'text-slate-900 group-hover:text-blue-600'
+          }`} itemProp="name">
           {faq.question}
         </h3>
       </div>
-      
+
       {/* Arrow icon */}
       <div className="flex-shrink-0 mt-1">
-        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 ${
-          isOpen 
-            ? 'bg-blue-50 rotate-180' 
-            : 'bg-slate-50 group-hover:bg-blue-50'
-        }`}>
+        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 ${isOpen
+          ? 'bg-blue-50 rotate-180'
+          : 'bg-slate-50 group-hover:bg-blue-50'
+          }`}>
           <svg
-            className={`w-5 h-5 transition-colors duration-300 ${
-              isOpen ? 'text-blue-600' : 'text-slate-400 group-hover:text-blue-600'
-            }`}
+            className={`w-5 h-5 transition-colors duration-300 ${isOpen ? 'text-blue-600' : 'text-slate-400 group-hover:text-blue-600'
+              }`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -306,12 +300,11 @@ const FAQItem = memo(({
         </div>
       </div>
     </button>
-    
+
     {/* Answer section */}
     <div
-      className={`overflow-hidden transition-all duration-300 ease-in-out ${
-        isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-      }`}
+      className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}
     >
       <div className="px-6 lg:px-8 pb-6">
         <div className="pl-12 pr-4">
@@ -329,19 +322,19 @@ const FAQItem = memo(({
 FAQItem.displayName = 'FAQItem';
 
 // Benefit Modal Component
-const BenefitModal = memo(({ 
-  isOpen, 
-  onClose, 
-  benefit 
-}: { 
-  isOpen: boolean; 
-  onClose: () => void; 
+const BenefitModal = memo(({
+  isOpen,
+  onClose,
+  benefit
+}: {
+  isOpen: boolean;
+  onClose: () => void;
   benefit: typeof BENEFITS_DATA[number] | null;
 }) => {
   // Handle ESC key to close modal
   useEffect(() => {
     if (!isOpen) return;
-    
+
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
@@ -359,14 +352,14 @@ const BenefitModal = memo(({
   const borderClass = benefit.color === 'blue' ? 'border-blue-200' : benefit.color === 'green' ? 'border-green-200' : benefit.color === 'indigo' ? 'border-indigo-200' : 'border-amber-200';
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       onClick={onClose}
       style={{
         animation: 'fadeIn 0.3s ease-out'
       }}
     >
-      <div 
+      <div
         className={`relative bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 border-2 ${borderClass}`}
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -402,19 +395,19 @@ const BenefitModal = memo(({
 BenefitModal.displayName = 'BenefitModal';
 
 // Why Choose Benefit Modal Component
-const WhyChooseModal = memo(({ 
-  isOpen, 
-  onClose, 
-  benefit 
-}: { 
-  isOpen: boolean; 
-  onClose: () => void; 
+const WhyChooseModal = memo(({
+  isOpen,
+  onClose,
+  benefit
+}: {
+  isOpen: boolean;
+  onClose: () => void;
   benefit: typeof WHY_CHOOSE_BENEFITS_DATA[number] | null;
 }) => {
   // Handle ESC key to close modal
   useEffect(() => {
     if (!isOpen) return;
-    
+
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
@@ -428,14 +421,14 @@ const WhyChooseModal = memo(({
   if (!isOpen || !benefit) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       onClick={onClose}
       style={{
         animation: 'fadeIn 0.3s ease-out'
       }}
     >
-      <div 
+      <div
         className={`relative bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 border-2 ${benefit.borderColor}`}
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -471,17 +464,17 @@ const WhyChooseModal = memo(({
 WhyChooseModal.displayName = 'WhyChooseModal';
 
 // Google Reviews Modal Component
-const ReviewsModal = memo(({ 
-  isOpen, 
-  onClose 
-}: { 
-  isOpen: boolean; 
+const ReviewsModal = memo(({
+  isOpen,
+  onClose
+}: {
+  isOpen: boolean;
   onClose: () => void;
 }) => {
   // Handle ESC key to close modal
   useEffect(() => {
     if (!isOpen) return;
-    
+
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
@@ -495,14 +488,14 @@ const ReviewsModal = memo(({
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm overflow-y-auto"
       onClick={onClose}
       style={{
         animation: 'fadeIn 0.3s ease-out'
       }}
     >
-      <div 
+      <div
         className="relative bg-white rounded-3xl shadow-2xl max-w-4xl w-full p-8 border-2 border-blue-200 my-8"
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -524,10 +517,10 @@ const ReviewsModal = memo(({
         <div className="flex items-center gap-4 mb-8 pb-6 border-b border-slate-200">
           <div className="flex items-center gap-3">
             <svg className="w-12 h-12" viewBox="0 0 48 48" fill="none">
-              <path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/>
-              <path d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"/>
-              <path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/>
-              <path d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/>
+              <path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107" />
+              <path d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00" />
+              <path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50" />
+              <path d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2" />
             </svg>
             <div>
               <h2 className="text-3xl font-bold text-slate-900">ECCELLENTE</h2>
@@ -575,19 +568,19 @@ const ReviewsModal = memo(({
 ReviewsModal.displayName = 'ReviewsModal';
 
 // How It Works Step Modal Component
-const HowItWorksModal = memo(({ 
-  isOpen, 
-  onClose, 
-  step 
-}: { 
-  isOpen: boolean; 
-  onClose: () => void; 
+const HowItWorksModal = memo(({
+  isOpen,
+  onClose,
+  step
+}: {
+  isOpen: boolean;
+  onClose: () => void;
   step: typeof HOW_IT_WORKS_STEPS[number] | null;
 }) => {
   // Handle ESC key to close modal
   useEffect(() => {
     if (!isOpen) return;
-    
+
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
@@ -601,14 +594,14 @@ const HowItWorksModal = memo(({
   if (!isOpen || !step) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       onClick={onClose}
       style={{
         animation: 'fadeIn 0.3s ease-out'
       }}
     >
-      <div 
+      <div
         className="relative bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 border-2 border-blue-200"
         onClick={(e) => e.stopPropagation()}
         style={{
@@ -713,50 +706,50 @@ export default function Home() {
       <header className="relative z-10 px-6 lg:px-12 py-4 lg:py-6" role="banner">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between">
-            <div className="flex flex-col md:block">
+            <div className="flex items-center">
               <Image
-                src="https://creditplan.it/wp-content/uploads/2023/02/LOGO-CREDITPLAN.png"
+                src="/logo.svg"
                 alt="Creditplan - Logo aziendale servizi di mediazione creditizia per cessione del quinto"
                 width={280}
                 height={96}
                 quality={60}
                 priority
                 sizes="(max-width: 768px) 200px, 280px"
-                className="w-auto h-8 lg:h-10 mt-4 lg:mt-0"
+                className="w-72 h-auto mt-4 lg:mt-0"
                 itemProp="logo"
               />
             </div>
-          
+
             <div className="flex items-center gap-4">
-            {/* OAM Badge */}
-            <a 
-              href="https://www.organismo-am.it/b/0/06197620963/F311BEF5-24B7-4A32-AB79-567598386DBC/g.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:flex flex-col gap-1 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300 group"
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex flex-col items-end">
-                  <span className="text-xs text-slate-500 leading-tight">Iscritti al registro</span>
-                  <span className="text-sm font-bold text-slate-900 leading-tight">OAM M30</span>
+              {/* OAM Badge */}
+              <a
+                href="https://www.organismo-am.it/b/0/06197620963/F311BEF5-24B7-4A32-AB79-567598386DBC/g.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden md:flex flex-col gap-1 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300 group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="flex flex-col items-end">
+                    <span className="text-xs text-slate-500 leading-tight">Iscritti al registro</span>
+                    <span className="text-sm font-bold text-slate-900 leading-tight">OAM M30</span>
+                  </div>
+                  <Image
+                    src="https://www.organismo-am.it/b/0/c3f18c274847902265f07537ce366a8eJO5NMdSW1LRcd_pl_8_eq_/1.png"
+                    alt="Creditplan iscritto al registro OAM M30 - Organismo Agenti e Mediatori - Verifica autorizzazione"
+                    width={44}
+                    height={44}
+                    quality={60}
+                    loading="lazy"
+                    className="w-11 h-11 object-contain"
+                  />
                 </div>
-                <Image
-                  src="https://www.organismo-am.it/b/0/c3f18c274847902265f07537ce366a8eJO5NMdSW1LRcd_pl_8_eq_/1.png"
-                  alt="Creditplan iscritto al registro OAM M30 - Organismo Agenti e Mediatori - Verifica autorizzazione"
-                  width={44}
-                  height={44}
-                  quality={60}
-                  loading="lazy"
-                  className="w-11 h-11 object-contain"
-                />
-              </div>
-              <div className="flex items-center justify-center gap-1.5 text-xs text-blue-600 font-medium">
-                <span>Verifica in tempo reale</span>
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </div>
-            </a>
+                <div className="flex items-center justify-center gap-1.5 text-xs text-blue-600 font-medium">
+                  <span>Verifica in tempo reale</span>
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -766,28 +759,28 @@ export default function Home() {
       <section className="relative z-10 px-6 lg:px-12 pt-0 lg:pt-8 pb-20" itemScope itemType="https://schema.org/FinancialProduct">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            
+
             {/* Left: Content */}
             <article className="space-y-8">
-              
+
               {/* Main Headline */}
               <header className="space-y-4">
                 <h1 className="text-5xl lg:text-7xl font-semibold lg:font-bold leading-[1.05] tracking-tight" itemProp="name">
                   <span className="block bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent">
-                    Ottieni fino a{' '}
+                    Il credito{' '}
                     <span className="relative inline-block">
-                      <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 bg-clip-text text-transparent font-extrabold">
-                        75.000€
-                      </span>
+                    <span className="font-extrabold text-[#090075]">
+  su misura con IA
+</span>
                       <span className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 via-indigo-600/20 to-blue-600/20 blur-xl -z-10 rounded-lg"></span>
                     </span>
                   </span>
                   <span className="block bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent">
-                    con la cessione del quinto
+                    per il tuo Condominio.
                   </span>
                 </h1>
                 <p className="text-xl lg:text-2xl text-slate-600 font-light max-w-xl leading-relaxed" itemProp="description">
-                  Calcola il tuo preventivo in 30 secondi. Zero impegno, 100% online.
+                  Soluzioni finanziarie immediate per ristrutturazioni, efficienza energetica e manutenzione straordinaria. Delibere veloci.
                 </p>
               </header>
             </article>
@@ -795,7 +788,7 @@ export default function Home() {
             {/* Right: Form Card + Social Proof */}
             <div className="space-y-6">
               <FormSection />
-              
+
               {/* Google Reviews Social Proof - Debajo del formulario */}
               <button
                 onClick={handleOpenReviewsModal}
@@ -803,10 +796,10 @@ export default function Home() {
               >
                 <div className="flex items-center gap-3">
                   <svg className="w-8 h-8" viewBox="0 0 48 48" fill="none">
-                    <path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107"/>
-                    <path d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00"/>
-                    <path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50"/>
-                    <path d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2"/>
+                    <path d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" fill="#FFC107" />
+                    <path d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z" fill="#FF3D00" />
+                    <path d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z" fill="#4CAF50" />
+                    <path d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" fill="#1976D2" />
                   </svg>
                   <div>
                     <div className="flex items-center gap-1 mb-0.5">
@@ -850,18 +843,16 @@ export default function Home() {
                 onClick={() => handleBenefitClick(idx)}
                 className="flex flex-col items-start gap-3 p-6 bg-white rounded-2xl border border-slate-100 hover:border-blue-200 transition-all duration-300 hover:shadow-lg cursor-pointer text-left w-full"
               >
-                <div className={`flex-shrink-0 w-12 h-12 ${
-                  benefit.color === 'blue' ? 'bg-blue-100' : 
-                  benefit.color === 'green' ? 'bg-green-100' : 
-                  benefit.color === 'indigo' ? 'bg-indigo-100' : 
-                  'bg-amber-100'
-                } rounded-xl flex items-center justify-center`}>
-                  <svg className={`w-6 h-6 ${
-                    benefit.color === 'blue' ? 'text-blue-600' : 
-                    benefit.color === 'green' ? 'text-green-600' : 
-                    benefit.color === 'indigo' ? 'text-indigo-600' : 
-                    'text-amber-600'
-                  }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className={`flex-shrink-0 w-12 h-12 ${benefit.color === 'blue' ? 'bg-blue-100' :
+                  benefit.color === 'green' ? 'bg-green-100' :
+                    benefit.color === 'indigo' ? 'bg-indigo-100' :
+                      'bg-amber-100'
+                  } rounded-xl flex items-center justify-center`}>
+                  <svg className={`w-6 h-6 ${benefit.color === 'blue' ? 'text-blue-600' :
+                    benefit.color === 'green' ? 'text-green-600' :
+                      benefit.color === 'indigo' ? 'text-indigo-600' :
+                        'text-amber-600'
+                    }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={benefit.icon} />
                   </svg>
                 </div>
@@ -878,11 +869,10 @@ export default function Home() {
               <button
                 key={idx}
                 onClick={() => handleWhyChooseClick(idx)}
-                className={`group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 ${
-                  benefit.color === 'blue' ? 'hover:border-blue-200' : 
-                  benefit.color === 'green' ? 'hover:border-emerald-200' : 
-                  'hover:border-amber-200'
-                } text-left w-full cursor-pointer`}
+                className={`group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 ${benefit.color === 'blue' ? 'hover:border-blue-200' :
+                  benefit.color === 'green' ? 'hover:border-emerald-200' :
+                    'hover:border-amber-200'
+                  } text-left w-full cursor-pointer`}
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${benefit.bgColor} rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-300`}></div>
                 <div className="relative">
@@ -947,9 +937,9 @@ export default function Home() {
               <button
                 key={idx}
                 onClick={() => handleHowItWorksClick(idx)}
-                className="relative group text-left w-full" 
+                className="relative group text-left w-full"
                 itemScope
-                itemType="https://schema.org/HowToStep" 
+                itemType="https://schema.org/HowToStep"
                 itemProp="step"
               >
                 <div className="relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100 hover:border-blue-200 cursor-pointer">
@@ -1011,7 +1001,7 @@ export default function Home() {
                   <p className="text-lg lg:text-xl text-blue-100 mb-8 leading-relaxed">
                     Unisciti a migliaia di clienti soddisfatti. Il tuo finanziamento è a portata di clic.
                   </p>
-                  <Button 
+                  <Button
                     onClick={scrollToForm}
                     className="bg-white text-blue-600 hover:bg-blue-50 h-14 px-8 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
                   >
@@ -1020,7 +1010,7 @@ export default function Home() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
                   </Button>
-                  
+
                   {/* Stats */}
                   <div className="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-white/20">
                     <div>
@@ -1041,73 +1031,23 @@ export default function Home() {
 
       {/* Bank Partnerships Section */}
       {false && (
-      <section className="relative z-10 px-6 lg:px-12 py-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30" aria-labelledby="bank-partnerships-heading">
-        <div className="max-w-7xl mx-auto">
-          <header className="text-center mb-12">
-            <h2 id="bank-partnerships-heading" className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-              Le nostre convenzioni bancarie
-            </h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Collaboriamo con i primari partner sul mercato per garantirti tassi competitivi e tempi rapidi
-            </p>
-          </header>
+        <section className="relative z-10 px-6 lg:px-12 py-20 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30" aria-labelledby="bank-partnerships-heading">
+          <div className="max-w-7xl mx-auto">
+            <header className="text-center mb-12">
+              <h2 id="bank-partnerships-heading" className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                Le nostre convenzioni bancarie
+              </h2>
+              <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+                Collaboriamo con i primari partner sul mercato per garantirti tassi competitivi e tempi rapidi
+              </p>
+            </header>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
-            {/* Banca Sistema */}
-            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
-              <Image
-                src="https://upload.wikimedia.org/wikipedia/commons/7/79/Banca_Sistema_logo.svg"
-                alt="Banca Sistema - Partner bancario Creditplan per cessione del quinto"
-                width={200}
-                height={80}
-                className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
-                loading="lazy"
-              />
-            </div>
-
-            {/* Capital Fin */}
-            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
-              <Image
-                src="https://www.bancaifis.it/app/uploads/2025/03/CAPITALFIN_Logo_Footer_Blu.svg"
-                alt="Capital Fin - Partner bancario Creditplan per prestiti e finanziamenti"
-                width={260}
-                height={104}
-                className="w-full h-auto max-h-[5.5rem] object-contain grayscale group-hover:grayscale-0 transition-all duration-300 mt-4 ml-2"
-                loading="lazy"
-              />
-            </div>
-
-            {/* Fincontinuo */}
-            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
-              <Image
-                src="https://www.fincontinuo.com/hubfs/fincontinuo-logo.svg"
-                alt="Fincontinuo - Partner finanziario Creditplan per cessione del quinto"
-                width={200}
-                height={80}
-                className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
-                loading="lazy"
-              />
-            </div>
-
-            {/* Bank Logo 4 */}
-            <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
-              <Image
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ68VRQtS9RBsKX4NXmQNzByi5hqhEGf7vc1w&s"
-                alt="Partner bancario convenzionato Creditplan per prestiti e finanziamenti"
-                width={200}
-                height={80}
-                className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
-                loading="lazy"
-              />
-            </div>
-
-            {/* Last 3 logos - centered */}
-            <div className="col-span-2 md:col-span-3 lg:col-span-4 flex flex-wrap justify-center gap-6 lg:gap-8">
-              {/* Bank Logo 5 */}
-              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
+              {/* Banca Sistema */}
+              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
                 <Image
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2_zu4rkVrkobpR88917ZnpI4RPD3zz3tXRw&s"
-                  alt="Partner bancario convenzionato Creditplan per cessione del quinto"
+                  src="https://upload.wikimedia.org/wikipedia/commons/7/79/Banca_Sistema_logo.svg"
+                  alt="Banca Sistema - Partner bancario Creditplan per cessione del quinto"
                   width={200}
                   height={80}
                   className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -1115,11 +1055,23 @@ export default function Home() {
                 />
               </div>
 
-              {/* IBL Banca */}
-              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
+              {/* Capital Fin */}
+              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
                 <Image
-                  src="https://thebanks.eu/img/logos/IBL_Banca.png"
-                  alt="IBL Banca - Partner bancario Creditplan per cessione del quinto e prestiti"
+                  src="https://www.bancaifis.it/app/uploads/2025/03/CAPITALFIN_Logo_Footer_Blu.svg"
+                  alt="Capital Fin - Partner bancario Creditplan per prestiti e finanziamenti"
+                  width={260}
+                  height={104}
+                  className="w-full h-auto max-h-[5.5rem] object-contain grayscale group-hover:grayscale-0 transition-all duration-300 mt-4 ml-2"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Fincontinuo */}
+              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
+                <Image
+                  src="https://www.fincontinuo.com/hubfs/fincontinuo-logo.svg"
+                  alt="Fincontinuo - Partner finanziario Creditplan per cessione del quinto"
                   width={200}
                   height={80}
                   className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -1127,27 +1079,65 @@ export default function Home() {
                 />
               </div>
 
-              {/* Bank Logo 7 */}
-              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
+              {/* Bank Logo 4 */}
+              <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
                 <Image
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3zTLQW74Q-2PPo5vC0p0tkJ_xOYRUJUbDiA&s"
-                  alt="Partner bancario convenzionato Creditplan per finanziamenti e prestiti"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ68VRQtS9RBsKX4NXmQNzByi5hqhEGf7vc1w&s"
+                  alt="Partner bancario convenzionato Creditplan per prestiti e finanziamenti"
                   width={200}
                   height={80}
                   className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
                   loading="lazy"
                 />
               </div>
+
+              {/* Last 3 logos - centered */}
+              <div className="col-span-2 md:col-span-3 lg:col-span-4 flex flex-wrap justify-center gap-6 lg:gap-8">
+                {/* Bank Logo 5 */}
+                <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
+                  <Image
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2_zu4rkVrkobpR88917ZnpI4RPD3zz3tXRw&s"
+                    alt="Partner bancario convenzionato Creditplan per cessione del quinto"
+                    width={200}
+                    height={80}
+                    className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                    loading="lazy"
+                  />
+                </div>
+
+                {/* IBL Banca */}
+                <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
+                  <Image
+                    src="https://thebanks.eu/img/logos/IBL_Banca.png"
+                    alt="IBL Banca - Partner bancario Creditplan per cessione del quinto e prestiti"
+                    width={200}
+                    height={80}
+                    className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                    loading="lazy"
+                  />
+                </div>
+
+                {/* Bank Logo 7 */}
+                <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
+                  <Image
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3zTLQW74Q-2PPo5vC0p0tkJ_xOYRUJUbDiA&s"
+                    alt="Partner bancario convenzionato Creditplan per finanziamenti e prestiti"
+                    width={200}
+                    height={80}
+                    className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <p className="text-sm text-slate-600">
+                <span className="font-semibold text-slate-900">Partner convenzionati INPS</span> - Garantiamo sicurezza e affidabilità
+              </p>
             </div>
           </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-sm text-slate-600">
-              <span className="font-semibold text-slate-900">Partner convenzionati INPS</span> - Garantiamo sicurezza e affidabilità
-            </p>
-          </div>
-        </div>
-      </section>
+        </section>
       )}
 
       {/* FAQ Section */}
@@ -1155,7 +1145,7 @@ export default function Home() {
         {/* Background Elements */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30"></div>
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIHN0cm9rZT0iIzk0YTNiOCIgc3Ryb2tlLW9wYWNpdHk9Ii4wNSIvPjwvZz48L3N2Zz4=')] opacity-40"></div>
-        
+
         <div className="relative max-w-5xl mx-auto">
           {/* Header */}
           <header className="text-center mb-16">
@@ -1195,7 +1185,7 @@ export default function Home() {
                 <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6">
                   I nostri consulenti sono pronti ad aiutarti. Nessun impegno, consulenza gratuita.
                 </p>
-                <Button 
+                <Button
                   onClick={scrollToForm}
                   className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 h-10 sm:h-12 px-6 sm:px-8 text-sm sm:text-base font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                 >
@@ -1232,16 +1222,16 @@ export default function Home() {
               </p>
             </div>
             <div className="flex items-center gap-6 text-sm text-slate-600">
-              <a 
-                href="https://creditplan.it/wp-content/uploads/2023/04/Informativa-privacy.pdf" 
+              <a
+                href="https://creditplan.it/wp-content/uploads/2023/04/Informativa-privacy.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-blue-600 transition-colors"
               >
                 Privacy Policy
               </a>
-              <a 
-                href="https://creditplan.it/trasparenza/" 
+              <a
+                href="https://creditplan.it/trasparenza/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-blue-600 transition-colors"
@@ -1250,7 +1240,7 @@ export default function Home() {
               </a>
             </div>
           </div>
-          
+
           {/* Designer Credit */}
           <div className="mt-8 pt-6 border-t border-slate-200">
             <p className="text-center text-sm text-slate-500">

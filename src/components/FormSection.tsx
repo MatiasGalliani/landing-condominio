@@ -92,7 +92,7 @@ export function FormSection() {
 
       const result = await response.json();
       console.log('Form submitted successfully:', result);
-      
+
       setIsLoading(false);
       router.push("/grazie");
     } catch (error) {
@@ -108,15 +108,15 @@ export function FormSection() {
       <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-3xl opacity-10"></div>
       <Card className="relative bg-white shadow-2xl border-0 overflow-hidden">
         <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500"></div>
-        
+
         <CardHeader className="space-y-3 pb-6">
           <div className="text-center">
             <CardTitle className="text-2xl lg:text-3xl font-bold text-slate-900 mb-2">
               {currentStep === 1 ? "Richiedi informazioni" : "Quasi fatto!"}
             </CardTitle>
             <p className="text-sm lg:text-base text-slate-600">
-              {currentStep === 1 
-                ? "Compila il form per essere ricontattato" 
+              {currentStep === 1
+                ? "Compila il form per essere ricontattato"
                 : "Inserisci i dati per calcolare la tua rata"}
             </p>
           </div>
@@ -209,7 +209,7 @@ export function FormSection() {
                 <Button
                   type="button"
                   onClick={onNext}
-                  className="w-full h-12 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-lg"
+                  className="w-full h-12 bg-[#090075] hover:bg-[#0a0090] text-white font-bold text-lg cursor-pointer"
                 >
                   Ottieni il Preventivo Gratuito →
                 </Button>
@@ -247,9 +247,9 @@ export function FormSection() {
                     <FormItem>
                       <FormLabel>Netto mensile</FormLabel>
                       <FormControl>
-                        <Input 
-                          type="number" 
-                          placeholder="Es. 1500" 
+                        <Input
+                          type="number"
+                          placeholder="Es. 1500"
                           {...field}
                           onChange={(e) => field.onChange(e.target.value)}
                         />
@@ -266,9 +266,9 @@ export function FormSection() {
                     <FormItem>
                       <FormLabel>Importo richiesto</FormLabel>
                       <FormControl>
-                        <Input 
-                          type="number" 
-                          placeholder="Es. 25000" 
+                        <Input
+                          type="number"
+                          placeholder="Es. 25000"
                           {...field}
                           onChange={(e) => field.onChange(e.target.value)}
                         />
