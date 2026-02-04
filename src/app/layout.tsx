@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "./smoothscroll";
@@ -20,9 +19,9 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://creditplan.it';
-const siteName = 'Creditplan';
-const defaultTitle = 'Cessione del Quinto in 48 Ore | Prestito fino a 75.000€ | Creditplan';
-const defaultDescription = 'Ottieni fino a 75.000€ con la cessione del quinto in sole 48 ore. Processo rapido, sicuro e completamente digitale. Istruttoria gratuita, approvazione in 24h, erogazione in 48h. Richiedi ora senza impegno!';
+const siteName = 'AICondomini';
+const defaultTitle = 'Finanziamenti per Condomini | Mediazione Creditizia | AICondomini';
+const defaultDescription = 'Soluzioni finanziarie per condomini: ristrutturazioni, efficienza energetica e manutenzione straordinaria. Mediazione creditizia specializzata con delibere veloci e supporto completo.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -32,36 +31,30 @@ export const metadata: Metadata = {
   },
   description: defaultDescription,
   keywords: [
-    "cessione del quinto",
-    "prestito cessione quinto",
-    "finanziamento cessione quinto",
-    "cessione quinto pensione",
-    "cessione quinto dipendenti",
-    "prestito dipendenti pubblici",
-    "prestito dipendenti privati",
-    "prestito pensionati",
-    "prestito fino a 75000 euro",
-    "prestito rapido 48 ore",
-    "prestito senza garante",
-    "prestito trattenuta busta paga",
-    "creditplan",
-    "prestito personale",
-    "finanziamento personale",
-    "prestito online",
-    "prestito veloce",
-    "prestito sicuro",
-    "prestito trasparente",
-    "prestito senza costi nascosti",
-    "prestito istruttoria gratuita",
-    "prestito approvazione rapida",
-    "prestito erogazione veloce",
-    "delegazione di pagamento",
-    "prestito INPS",
-    "prestito ente pensionistico",
+    "finanziamento condominio",
+    "prestito condominio",
+    "mediazione creditizia condominio",
+    "ristrutturazione condominio",
+    "efficienza energetica condominio",
+    "cappotto termico finanziamento",
+    "rifacimento facciata condominio",
+    "installazione ascensore condominio",
+    "fotovoltaico condominio",
+    "eco bonus condominio",
+    "superbonus condominio",
+    "amministratore condominio finanziamento",
+    "delibera condominio",
+    "lavori straordinari condominio",
+    "manutenzione straordinaria condominio",
+    "creditplan condominio",
+    "AICondomini",
+    "finanziamento lavori condominiali",
+    "prestito per lavori condominio",
+    "società mediazione creditizia",
   ],
-  authors: [{ name: "Creditplan Italia Network di Mediazione Credizia" }],
-  creator: "Creditplan",
-  publisher: "Creditplan",
+  authors: [{ name: "AICondomini - Creditplan Italia Network di Mediazione Creditizia" }],
+  creator: "AICondomini",
+  publisher: "AICondomini",
   formatDetection: {
     telephone: true,
     date: false,
@@ -84,7 +77,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/og-image.jpg`,
         width: 1200,
         height: 630,
-        alt: "Creditplan - Cessione del Quinto in 48 Ore",
+        alt: "AICondomini - Finanziamenti per Condomini",
         type: "image/jpeg",
       },
     ],
@@ -94,8 +87,6 @@ export const metadata: Metadata = {
     title: defaultTitle,
     description: defaultDescription,
     images: [`${siteUrl}/og-image.jpg`],
-    creator: "@creditplan",
-    site: "@creditplan",
   },
   robots: {
     index: true,
@@ -113,8 +104,8 @@ export const metadata: Metadata = {
     yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION,
     yahoo: process.env.NEXT_PUBLIC_YAHOO_VERIFICATION,
   },
-  category: "Finanza e Prestiti",
-  classification: "Financial Services",
+  category: "Mediazione Creditizia",
+  classification: "Credit Brokerage Services",
   other: {
     'format-detection': 'telephone=yes',
     'mobile-web-app-capable': 'yes',
@@ -152,17 +143,6 @@ export default function RootLayout({
         <meta name="revisit-after" content="7 days" />
         <meta name="distribution" content="global" />
         <meta name="rating" content="general" />
-
-        {/* Microsoft Clarity */}
-        <Script id="ms-clarity" strategy="afterInteractive">
-          {`
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "u8gs2pf8t0");
-          `}
-        </Script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

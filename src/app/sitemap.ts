@@ -18,19 +18,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       },
     },
     {
-      url: `${siteUrl}/cessione-del-quinto`,
+      url: `${siteUrl}/finanziamenti-condomini`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${siteUrl}/prestito-dipendenti`,
+      url: `${siteUrl}/ristrutturazioni`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/prestito-pensionati`,
+      url: `${siteUrl}/efficienza-energetica`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,

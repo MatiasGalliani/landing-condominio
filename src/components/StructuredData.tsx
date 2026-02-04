@@ -10,11 +10,11 @@ export function StructuredData() {
     const organizationSchema = {
       "@context": "https://schema.org",
       "@type": "FinancialService",
-      "name": "Creditplan Italia Network di Mediazione Credizia",
-      "alternateName": "Creditplan",
+      "name": "AICondomini - Creditplan Italia Network di Mediazione Creditizia",
+      "alternateName": "AICondomini",
       "url": siteUrl,
       "logo": `${siteUrl}/logo.png`,
-      "description": "Servizi di mediazione creditizia per cessione del quinto, prestiti personali e finanziamenti per dipendenti e pensionati.",
+      "description": "Servizi di mediazione creditizia specializzati per condomini. Finanziamenti per ristrutturazioni, efficienza energetica e manutenzione straordinaria.",
       "address": {
         "@type": "PostalAddress",
         "addressCountry": "IT",
@@ -32,7 +32,7 @@ export function StructuredData() {
         "@type": "Country",
         "name": "Italy"
       },
-      "serviceType": "Mediazione Creditizia",
+      "serviceType": "Mediazione Creditizia per Condomini",
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.9",
@@ -46,11 +46,11 @@ export function StructuredData() {
     const productSchema = {
       "@context": "https://schema.org",
       "@type": "FinancialProduct",
-      "name": "Cessione del Quinto",
-      "description": "Prestito personale garantito con trattenuta diretta in busta paga o pensione. Importo massimo 75.000€, erogazione in 48 ore, istruttoria gratuita.",
+      "name": "Finanziamento Condominio",
+      "description": "Finanziamenti per lavori condominiali: ristrutturazioni, efficienza energetica, cappotto termico, fotovoltaico. Erogazione diretta, zero garanzie personali, supporto completo.",
       "provider": {
         "@type": "FinancialService",
-        "name": "Creditplan"
+        "name": "AICondomini"
       },
       "offers": {
         "@type": "Offer",
@@ -72,12 +72,12 @@ export function StructuredData() {
         "reviewCount": "2000"
       },
       "featureList": [
-        "Erogazione in 48 ore",
-        "Istruttoria gratuita",
-        "Approvazione in 24 ore",
-        "Nessun garante richiesto",
-        "Rata fissa",
-        "Trasparenza totale"
+        "Erogazione diretta al condominio",
+        "Zero garanzie personali",
+        "Supporto in assemblea",
+        "Specialisti eco-bonus",
+        "Gestione completa burocrazia",
+        "Piani fino a 10 anni"
       ]
     };
 
@@ -88,82 +88,50 @@ export function StructuredData() {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Cos'è la Cessione del Quinto?",
+          "name": "Quali tipi di lavori possono essere finanziati?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "La cessione del quinto è un prestito garantito con trattenuta diretta in busta paga o sulla pensione. Può essere richiesto senza dovere fornire motivazioni e l'importo massimo della rata non può eccedere il 20% dello stipendio netto mensile (un quinto)."
+            "text": "Ristrutturazione facciate, tetti, installazione ascensori, cappotto termico e impianti fotovoltaici."
           }
         },
         {
           "@type": "Question",
-          "name": "Quali sono i costi e le commissioni associate?",
+          "name": "È necessaria la firma di tutti i condòmini?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Nessun costo o commissioni accessorie; l'importo richiesto viene erogato \"chiavi in mano\"."
+            "text": "No, il finanziamento viene deliberato dall'assemblea e sottoscritto dall'amministratore pro-tempore."
           }
         },
         {
           "@type": "Question",
-          "name": "Quanto tempo serve per ottenere il prestito?",
+          "name": "Qual è la durata massima del finanziamento?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Con Creditplan puoi ottenere la liquidità necessaria in pochi giorni grazie ai nostri partner bancari specializzati e al team qualificato."
+            "text": "Offriamo piani flessibili che possono arrivare fino a 120 mesi (10 anni)."
           }
         },
         {
           "@type": "Question",
-          "name": "Quali requisiti devo avere per richiedere la Cessione del Quinto?",
+          "name": "Esistono costi anticipati?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Puoi richiedere la Cessione del Quinto se sei un lavoratore dipendente (pubblico/statale o privato) con contratto a tempo indeterminato o un pensionato. Non è richiesto alcun garante."
+            "text": "No, la consulenza preliminare è gratuita e non vincolante."
           }
         },
         {
           "@type": "Question",
-          "name": "Esiste un limite massimo di età per la Cessione del Quinto?",
+          "name": "Come viene erogato il finanziamento?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Sì, i pensionati possono ottenere il prestito fino a 89 anni alla scadenza del finanziamento."
+            "text": "Il finanziamento viene erogato direttamente al condominio, permettendo di iniziare i lavori immediatamente senza attendere la raccolta delle quote dai singoli condòmini."
           }
         },
         {
           "@type": "Question",
-          "name": "Cosa succede se non raggiungo i requisiti per rinnovare una Cessione del Quinto già in corso?",
+          "name": "Quanto tempo serve per ottenere una risposta?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "In caso di mancato raggiungimento dei termini per il rinnovo, possiamo valutare insieme la Delegazione di Pagamento, una seconda trattenuta sullo stipendio che permette di ottenere ulteriore liquidità."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Perché dovrei scegliere Creditplan?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Le nostre convenzioni bancarie con i primari partner sul mercato, ci permettono di avere tassi competitivi e tempi rapidi di erogazione."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Posso richiedere il prestito se sono stato segnalato come cattivo pagatore?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sì, la Cessione del Quinto è accessibile anche in caso di segnalazioni o protesti, in quanto non tiene conto delle segnalazioni nelle banche dati pubbliche."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "È possibile estinguere anticipatamente la Cessione del Quinto?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sì, puoi estinguere anticipatamente il prestito in qualsiasi momento beneficiando dello storno degli interessi futuri dovuti."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Quanto costa la consulenza con Creditplan?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Nessun costo accessorio."
+            "text": "Valutiamo la fattibilità del progetto e la solvibilità del condominio in 48 ore."
           }
         }
       ]
@@ -183,8 +151,8 @@ export function StructuredData() {
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Cessione del Quinto",
-          "item": `${siteUrl}/cessione-del-quinto`
+          "name": "Finanziamenti Condomini",
+          "item": `${siteUrl}/finanziamenti-condomini`
         }
       ]
     };
@@ -193,18 +161,18 @@ export function StructuredData() {
     const webPageSchema = {
       "@context": "https://schema.org",
       "@type": "WebPage",
-      "name": "Cessione del Quinto in 48 Ore | Prestito fino a 75.000€ | Creditplan",
-      "description": "Ottieni fino a 75.000€ con la cessione del quinto in sole 48 ore. Processo rapido, sicuro e completamente digitale.",
+      "name": "Finanziamenti per Condomini | Mediazione Creditizia | AICondomini",
+      "description": "Soluzioni finanziarie per condomini: ristrutturazioni, efficienza energetica e manutenzione straordinaria. Mediazione creditizia specializzata con delibere veloci e supporto completo.",
       "url": siteUrl,
       "inLanguage": "it-IT",
       "isPartOf": {
         "@type": "WebSite",
-        "name": "Creditplan",
+        "name": "AICondomini",
         "url": siteUrl
       },
       "about": {
         "@type": "FinancialProduct",
-        "name": "Cessione del Quinto"
+        "name": "Finanziamento Condominio"
       },
       "primaryImageOfPage": {
         "@type": "ImageObject",
@@ -218,10 +186,10 @@ export function StructuredData() {
     const serviceSchema = {
       "@context": "https://schema.org",
       "@type": "Service",
-      "serviceType": "Mediazione Creditizia - Cessione del Quinto",
+      "serviceType": "Mediazione Creditizia per Condomini",
       "provider": {
         "@type": "FinancialService",
-        "name": "Creditplan"
+        "name": "AICondomini"
       },
       "areaServed": {
         "@type": "Country",
@@ -229,22 +197,30 @@ export function StructuredData() {
       },
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "Servizi di Prestito",
+        "name": "Servizi di Finanziamento",
         "itemListElement": [
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Cessione del Quinto per Dipendenti",
-              "description": "Prestito per dipendenti pubblici e privati"
+              "name": "Ristrutturazione Facciate",
+              "description": "Finanziamento per rifacimento facciate e cappotto termico"
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Cessione del Quinto per Pensionati",
-              "description": "Prestito per pensionati fino a 89 anni"
+              "name": "Efficienza Energetica",
+              "description": "Finanziamento per fotovoltaico e riqualificazione energetica"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Installazione Ascensori",
+              "description": "Finanziamento per installazione ascensori e abbattimento barriere"
             }
           }
         ]
@@ -255,28 +231,28 @@ export function StructuredData() {
     const howToSchema = {
       "@context": "https://schema.org",
       "@type": "HowTo",
-      "name": "Come richiedere la Cessione del Quinto",
-      "description": "Guida passo-passo per richiedere la cessione del quinto con Creditplan",
+      "name": "Come otteniamo il finanziamento per il condominio",
+      "description": "Guida passo-passo per ottenere un finanziamento per lavori condominiali con AICondomini",
       "step": [
         {
           "@type": "HowToStep",
           "position": 1,
-          "name": "Compila il form",
-          "text": "Inserisci i tuoi dati in meno di 2 minuti. Nessun documento richiesto in questa fase.",
+          "name": "Analisi Preliminare",
+          "text": "Valutiamo la fattibilità del progetto e la solvibilità del condominio in 48 ore.",
           "image": `${siteUrl}/step1.jpg`
         },
         {
           "@type": "HowToStep",
           "position": 2,
-          "name": "Ricevi la chiamata",
-          "text": "Un nostro consulente esperto ti contatterà entro 2 ore per discutere la tua situazione.",
+          "name": "Delibera e Firma",
+          "text": "Supportiamo l'amministratore nella presentazione del piano in assemblea.",
           "image": `${siteUrl}/step2.jpg`
         },
         {
           "@type": "HowToStep",
           "position": 3,
-          "name": "Ricevi il denaro",
-          "text": "Dopo l'approvazione, ricevi il tuo finanziamento sul conto in 48 ore.",
+          "name": "Liquidità Immediata",
+          "text": "Una volta approvato, i fondi vengono erogati per dare il via ai lavori.",
           "image": `${siteUrl}/step3.jpg`
         }
       ],
@@ -315,4 +291,3 @@ export function StructuredData() {
 
   return null;
 }
-

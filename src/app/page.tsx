@@ -685,7 +685,7 @@ export default function Home() {
             <div className="flex items-center">
               <Image
                 src="/logo.svg"
-                alt="Creditplan - Logo aziendale servizi di mediazione creditizia per cessione del quinto"
+                alt="Creditplan - Logo aziendale servizi di mediazione creditizia per condomini"
                 width={280}
                 height={96}
                 quality={60}
@@ -895,7 +895,7 @@ export default function Home() {
           <div className="max-w-xl mx-auto">
             <Image
               src="/img3.png"
-              alt="Come funziona la cessione del quinto con Creditplan - Processo in 3 semplici passaggi"
+              alt="Come funziona il finanziamento condominio con AICondomini - Processo in 3 semplici passaggi"
               width={600}
               height={300}
               quality={60}
@@ -942,7 +942,7 @@ export default function Home() {
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <Image
                   src="/img2.png"
-                  alt="Famiglia soddisfatta con Creditplan - Cessione del quinto per realizzare i propri progetti"
+                  alt="Condominio ristrutturato con AICondomini - Finanziamenti per lavori condominiali"
                   width={800}
                   height={600}
                   quality={60}
@@ -1022,7 +1022,7 @@ export default function Home() {
               <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
                 <Image
                   src="https://upload.wikimedia.org/wikipedia/commons/7/79/Banca_Sistema_logo.svg"
-                  alt="Banca Sistema - Partner bancario Creditplan per cessione del quinto"
+                  alt="Banca Sistema - Partner bancario AICondomini per finanziamenti condominio"
                   width={200}
                   height={80}
                   className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -1034,7 +1034,7 @@ export default function Home() {
               <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
                 <Image
                   src="https://www.bancaifis.it/app/uploads/2025/03/CAPITALFIN_Logo_Footer_Blu.svg"
-                  alt="Capital Fin - Partner bancario Creditplan per prestiti e finanziamenti"
+                  alt="Capital Fin - Partner bancario AICondomini per finanziamenti condominio"
                   width={260}
                   height={104}
                   className="w-full h-auto max-h-[5.5rem] object-contain grayscale group-hover:grayscale-0 transition-all duration-300 mt-4 ml-2"
@@ -1046,7 +1046,7 @@ export default function Home() {
               <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
                 <Image
                   src="https://www.fincontinuo.com/hubfs/fincontinuo-logo.svg"
-                  alt="Fincontinuo - Partner finanziario Creditplan per cessione del quinto"
+                  alt="Fincontinuo - Partner finanziario AICondomini per finanziamenti condominio"
                   width={200}
                   height={80}
                   className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -1058,7 +1058,7 @@ export default function Home() {
               <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px]">
                 <Image
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ68VRQtS9RBsKX4NXmQNzByi5hqhEGf7vc1w&s"
-                  alt="Partner bancario convenzionato Creditplan per prestiti e finanziamenti"
+                  alt="Partner bancario convenzionato AICondomini per finanziamenti condominio"
                   width={200}
                   height={80}
                   className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -1072,7 +1072,7 @@ export default function Home() {
                 <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
                   <Image
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2_zu4rkVrkobpR88917ZnpI4RPD3zz3tXRw&s"
-                    alt="Partner bancario convenzionato Creditplan per cessione del quinto"
+                    alt="Partner bancario convenzionato AICondomini per finanziamenti condominio"
                     width={200}
                     height={80}
                     className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -1084,7 +1084,7 @@ export default function Home() {
                 <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
                   <Image
                     src="https://thebanks.eu/img/logos/IBL_Banca.png"
-                    alt="IBL Banca - Partner bancario Creditplan per cessione del quinto e prestiti"
+                    alt="IBL Banca - Partner bancario AICondomini per finanziamenti condominio"
                     width={200}
                     height={80}
                     className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -1096,7 +1096,7 @@ export default function Home() {
                 <div className="group relative bg-white rounded-2xl p-6 lg:p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-slate-200 hover:border-blue-300 flex items-center justify-center min-h-[120px] w-full sm:w-auto sm:min-w-[200px]">
                   <Image
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3zTLQW74Q-2PPo5vC0p0tkJ_xOYRUJUbDiA&s"
-                    alt="Partner bancario convenzionato Creditplan per finanziamenti e prestiti"
+                    alt="Partner bancario convenzionato AICondomini per finanziamenti condominio"
                     width={200}
                     height={80}
                     className="w-full h-auto max-h-16 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
@@ -1108,7 +1108,7 @@ export default function Home() {
 
             <div className="mt-12 text-center">
               <p className="text-sm text-slate-600">
-                <span className="font-semibold text-slate-900">Partner convenzionati INPS</span> - Garantiamo sicurezza e affidabilità
+                <span className="font-semibold text-slate-900">Partner finanziari certificati</span> - Garantiamo sicurezza e affidabilità
               </p>
             </div>
           </div>
@@ -1128,7 +1128,7 @@ export default function Home() {
               Domande Frequenti
             </h2>
             <p className="text-lg lg:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-              Tutto quello che devi sapere sulla Cessione del Quinto.
+              Tutto quello che devi sapere sui finanziamenti per condomini.
             </p>
           </header>
 
