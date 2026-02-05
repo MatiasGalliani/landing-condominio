@@ -3,8 +3,17 @@
 import { useState, memo, useCallback, useMemo, lazy, Suspense, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import dynamic from 'next/dynamic';
 import { StructuredData } from "@/components/StructuredData";
+import { getLenis } from './smoothscroll'
 
 // Lazy load heavy sections below the fold for faster initial load
 const FormSection = dynamic(() => import('@/components/FormSection').then(mod => ({ default: mod.FormSection })), {
@@ -28,6 +37,10 @@ const FAQ_ITEMS = [
   {
     question: "Esistono costi anticipati?",
     answer: "No, la consulenza preliminare è gratuita e non vincolante."
+  },
+  {
+    question: "Valutate soluzioni personalizzate per necessità extra oltre il finanziamento standard?",
+    answer: "Assolutamente sì. Sappiamo che ogni condominio ha dinamiche uniche. Oltre al finanziamento dei lavori, analizziamo soluzioni su misura per esigenze specifiche come la gestione di morosità pregresse, la copertura di spese legali straordinarie o l'integrazione con fondi di riserva. Il nostro obiettivo è fornire una serenità finanziaria completa all'intero stabile.",
   }
 ] as const;
 
@@ -130,9 +143,9 @@ const WHY_CHOOSE_BENEFITS_DATA = [
   {
     icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
     color: "green",
-    title: "Specialisti Eco-Bonus",
-    description: "Gestiamo le pratiche di finanziamento per lavori di riqualificazione energetica",
-    detailedContent: "Gestiamo le pratiche di finanziamento per lavori di riqualificazione energetica. Siamo esperti nelle normative e negli incentivi legati al risparmio energetico, e ti aiutiamo a massimizzare i benefici per il tuo condominio.",
+    title: "Finanziamenti per Riqualificazione",
+    description: "Soluzioni di finanziamento per lavori di efficientamento energetico e ristrutturazione",
+    detailedContent: "Offriamo soluzioni di finanziamento complete per lavori di riqualificazione energetica e ristrutturazione del tuo condominio. Ti assistiamo in tutte le fasi del processo, dalla valutazione iniziale fino al completamento dei lavori.",
     gradientFrom: "from-emerald-500",
     gradientTo: "to-emerald-600",
     borderColor: "border-emerald-200",
@@ -616,6 +629,7 @@ export default function Home() {
   const [openWhyChooseIndex, setOpenWhyChooseIndex] = useState<number | null>(null);
   const [openReviewsModal, setOpenReviewsModal] = useState(false);
   const [openHowItWorksIndex, setOpenHowItWorksIndex] = useState<number | null>(null);
+  const [openImpresaEdileDialog, setOpenImpresaEdileDialog] = useState(false);
 
   // Memoize scroll handler
   const scrollToForm = useCallback(() => {
@@ -669,6 +683,23 @@ export default function Home() {
   const handleCloseHowItWorksModal = useCallback(() => {
     setOpenHowItWorksIndex(null);
   }, []);
+
+  useEffect(() => {
+    const lenis = getLenis(); // Import this function
+
+    if (openImpresaEdileDialog) {
+      document.body.style.overflow = 'hidden';
+      lenis?.stop(); // Stop Lenis
+    } else {
+      document.body.style.overflow = 'unset';
+      lenis?.start(); // Restart Lenis
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+      lenis?.start();
+    };
+  }, [openImpresaEdileDialog]);
 
   const selectedBenefit = openBenefitIndex !== null ? BENEFITS_DATA[openBenefitIndex] : null;
   const selectedWhyChooseBenefit = openWhyChooseIndex !== null ? WHY_CHOOSE_BENEFITS_DATA[openWhyChooseIndex] : null;
@@ -746,7 +777,7 @@ export default function Home() {
                     Il credito{' '}
                     <span className="relative inline-block">
                       <span className="font-extrabold text-[#090075]">
-                        su misura con IA
+                        su misura
                       </span>
                     </span>
                   </span>
@@ -1114,6 +1145,126 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      <section className="relative z-10 px-6 lg:px-12 py-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-0 items-stretch">
+            <div className="relative flex flex-col items-start gap-3 lg:gap-4 bg-[#151E3B] rounded-t-2xl rounded-b-none lg:rounded-2xl lg:rounded-r-none shadow-lg p-10 sm:p-8 lg:p-10 w-full">
+              <header className="text-left mb-12">
+                <h2 className="text-2xl lg:text-5xl font-bold mb-4" style={{ color: '#CEE5FD' }}>
+                  Sei un’Impresa Edile? Incrementa i tuoi cantieri
+                </h2>
+                <p className="text-lg max-w-2xl mx-auto mt-8" style={{ color: '#CEE5FD' }}>
+                  Offri ai tuoi clienti la possibilità di finanziare i lavori al 100%. Diventa partner di AICondomini e chiudi più contratti senza preoccuparti della liquidità.
+                </p>
+              </header>
+              <div className="lg:absolute lg:bottom-12 lg:left-10">
+                <Dialog open={openImpresaEdileDialog} onOpenChange={setOpenImpresaEdileDialog} modal={true}>
+                  <DialogTrigger asChild>
+                    <Button className="bg-white text-[#151E3B] hover:bg-blue-50 h-12 px-8 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer">
+                      Diventa Partner
+                      <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </Button>
+                  </DialogTrigger>
+
+                  <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto animate-in fade-in-0 zoom-in-90 slide-in-from-bottom-4 duration-500">
+                    <DialogHeader>
+                      <DialogTitle className="text-2xl font-semibold">Collabora con noi</DialogTitle>
+                      <DialogDescription className="text-base">
+                        Unisciti alla nostra rete di partner. Ti aiuteremo a offrire soluzioni finanziarie imbattibili ai tuoi clienti, garantendo pagamenti certi per la tua impresa.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <form className="space-y-4 mt-4" onSubmit={(e) => {
+                      e.preventDefault();
+                      console.log('Form submitted');
+                      setOpenImpresaEdileDialog(false);
+                    }}>
+                      <div className="space-y-4">
+                        <div>
+                          <label htmlFor="company-name" className="block text-sm font-medium text-slate-700 mb-1">
+                            Nome Azienda
+                          </label>
+                          <input
+                            id="company-name"
+                            type="text"
+                            required
+                            className="w-full px-4 py-2 border border-slate-300 rounded-lg"
+                            placeholder="Nome Azienda"
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="contact-person" className="block text-sm font-medium text-slate-700 mb-1">
+                            Nome e Cognome Referente
+                          </label>
+                          <input
+                            id="contact-person"
+                            type="text"
+                            required
+                            className="w-full px-4 py-2 border border-slate-300 rounded-lg"
+                            placeholder="Nome e Cognome"
+                          />
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div>
+                            <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
+                              Email
+                            </label>
+                            <input
+                              id="email"
+                              type="email"
+                              required
+                              className="w-full px-4 py-2 border border-slate-300 rounded-lg"
+                              placeholder="info@azienda.it"
+                            />
+                          </div>
+
+                          <div>
+                            <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-1">
+                              Telefono
+                            </label>
+                            <input
+                              id="phone"
+                              type="tel"
+                              required
+                              className="w-full px-4 py-2 border border-slate-300 rounded-lg"
+                              placeholder="+39 333 1234567"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex gap-3 pt-4">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setOpenImpresaEdileDialog(false)}
+                          className="flex-1 cursor-pointer"
+                        >
+                          Anulla
+                        </Button>
+                        <Button
+                          type="submit"
+                          className="flex-1 bg-[#090075] hover:bg-[#151E3B] cursor-pointer"
+                        >
+                          Invia Richiesta
+                        </Button>
+                      </div>
+                    </form>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            </div>
+            <div className="relative h-[500px] max-w-[600px] rounded-t-none rounded-b-2xl lg:rounded-l-none lg:rounded-r-2xl overflow-hidden">
+              <img
+                src="/impresa_edile.png"
+                alt="Impresa Edile - Partnership AICondomini"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* FAQ Section */}
       <section className="relative z-10 px-6 lg:px-12 py-24 overflow-hidden" aria-labelledby="faq-heading" itemScope itemType="https://schema.org/FAQPage">
